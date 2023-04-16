@@ -226,19 +226,19 @@ module.exports = grupo = async(client,message) => {
                 break
 
             case "!atrava":
-                if (!isGroupAdmins) return client.reply(chatId, msgs_texto.permissao.apenas_admin , id)
-                if (!isBotGroupAdmins) return client.reply(chatId,msgs_texto.permissao.bot_admin, id)
+                //if (!isGroupAdmins) return client.reply(chatId, msgs_texto.permissao.apenas_admin , id)
+                //if (!isBotGroupAdmins) return client.reply(chatId,msgs_texto.permissao.bot_admin, id)
                 var grupoInfo = await db.obterGrupo(groupId)
-                var estadoNovo = !grupoInfo.antitrava.status
-                if (estadoNovo) {
-                    var maxCaracteres = args[1] || 1500
-                    if(isNaN(maxCaracteres) || maxCaracteres < 250) return await client.reply(chatId, msgs_texto.grupo.antitrava.qtd_invalida, id)
-                    await db.alterarAntiTrava(groupId, true, maxCaracteres)
-                    await client.reply(chatId,  criarTexto(msgs_texto.grupo.antitrava.ligado, maxCaracteres), id)
-                } else {
-                    await db.alterarAntiTrava(groupId, false, 0)
-                    await client.reply(chatId,  msgs_texto.grupo.antitrava.desligado, id)
-                }
+                //var estadoNovo = !grupoInfo.antitrava.status
+                //if (estadoNovo) {
+                //    var maxCaracteres = args[1] || 1500
+                //    if(isNaN(maxCaracteres) || maxCaracteres < 250) return await client.reply(chatId, msgs_texto.grupo.antitrava.qtd_invalida, id)
+                //    await db.alterarAntiTrava(groupId, true, maxCaracteres)
+                //    await client.reply(chatId,  criarTexto(msgs_texto.grupo.antitrava.ligado, maxCaracteres), id)
+                //} else {
+                //    await db.alterarAntiTrava(groupId, false, 0)
+                //    await client.reply(chatId,  msgs_texto.grupo.antitrava.desligado, id)
+                //}
                 break
 
             case '!contador':

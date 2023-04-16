@@ -10,8 +10,7 @@ const client = new Client({
   authStrategy: new LocalAuth(),
   puppeteer: {
     executablePath: chromium.executablePath?.(),
-    headless: true,
-    args: ['--no-sandbox']
+    headless: true
   },
   ffmpegPath: ffmpeg
 });
@@ -33,9 +32,10 @@ client.on("ready", () => {
 client.on("message_create", async message => {
   const { chat, from, broadcast } = message || {};
   const isBroadcast = broadcast || false;
+  const sender = from;
 
   if (from !== "status@broadcast" && !isBroadcast) {
-    messagesGetter(message, message.type);  
+    messagesGetter(sender, message, message.type);  
   }
 });
 

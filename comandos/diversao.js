@@ -112,18 +112,21 @@ module.exports = diversao = async(client,message) => {
                 break
 
             case '!roletarussa':
-                if (!isGroupMsg) return await client.reply(chatId, msgs_texto.permissao.grupo, id)
-                if (!isGroupAdmins) return await client.reply(chatId, msgs_texto.permissao.apenas_admin , id)
-                if (!isBotGroupAdmins) return await client.reply(chatId,msgs_texto.permissao.bot_admin, id)
-                var idParticipantesAtuais = await client.getGroupMembersId(groupId)
-                idParticipantesAtuais.splice(idParticipantesAtuais.indexOf(groupOwner),1)
-                idParticipantesAtuais.splice(idParticipantesAtuais.indexOf(botNumber+'@c.us'),1)
-                if(idParticipantesAtuais.length == 0) return await client.reply(chatId, msgs_texto.diversao.roletarussa.sem_membros, id)
-                var indexAleatorio = Math.floor(Math.random() * idParticipantesAtuais.length)
-                var respostaTexto = criarTexto(msgs_texto.diversao.roletarussa.resposta, idParticipantesAtuais[indexAleatorio].replace(/@c.us/g, ''))
-                await client.reply(chatId, msgs_texto.diversao.roletarussa.espera , id)
+               //if (!isGroupMsg) return await client.reply(chatId, msgs_texto.permissao.grupo, id)
+               //if (!isGroupAdmins) return await client.reply(chatId, msgs_texto.permissao.apenas_admin , id)
+               //if (!isBotGroupAdmins) return await client.reply(chatId,msgs_texto.permissao.bot_admin, id)
+               //var idParticipantesAtuais = await client.getGroupMembersId(groupId)
+               //idParticipantesAtuais.splice(idParticipantesAtuais.indexOf(groupOwner),1)
+               //idParticipantesAtuais.splice(idParticipantesAtuais.indexOf(botNumber+'@c.us'),1)
+               //if(idParticipantesAtuais.length == 0) return await client.reply(chatId, msgs_texto.diversao.roletarussa.sem_membros, id)
+               //var indexAleatorio = Math.floor(Math.random() * idParticipantesAtuais.length)
+               //var respostaTexto = criarTexto(msgs_texto.diversao.roletarussa.resposta, idParticipantesAtuais[indexAleatorio].replace(/@c.us/g, ''))
+               //await client.reply(chatId, msgs_texto.diversao.roletarussa.espera , id)
+               //await client.sendTextWithMentions(chatId, respostaTexto)
+               //await client.removeParticipant(groupId, idParticipantesAtuais[indexAleatorio])
+                //break
+                respostaTexto = "Desativado temporariamente."
                 await client.sendTextWithMentions(chatId, respostaTexto)
-                await client.removeParticipant(groupId, idParticipantesAtuais[indexAleatorio])
                 break
             
             case '!casal':

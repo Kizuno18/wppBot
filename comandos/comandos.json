@@ -20,7 +20,9 @@
         "!ajuda","!menu",
         "!reportar",
         "!meusdados",
-        "!info"
+        "!info",
+        "!verificar",
+        "!desbloquear"
     ],
     "figurinhas": [
         "!s",
@@ -60,7 +62,6 @@
         "!rlink",
         "!f",
         "!alink",
-        "!atrava",
         "!aporno",
         "!autosticker",
         "!bv",
@@ -124,8 +125,10 @@
         "!limitediario",
         "!taxalimite",
         "!limitarmsgs",
-        "!desbloquear",
+        "!unblock",
         "!estado",
+        "!teste",
+        "!regctt",
         "!admin",
         "!rconfig",
         "!mudarlimite",

@@ -14,11 +14,8 @@ const recarregarContagem = require("./lib/recarregarContagem")
 const {botStart} = require('./lib/bot')
 const {verificarEnv} = require('./lib/env')
 const path = require('path');
-const importAll = require('import-all');
+const { chromium } = require("playwright-chromium")
 
-const modules = importAll(__dirname);
-
-module.exports = modules;
 
 const start = async (client = new Client()) => {
     try{
@@ -54,10 +51,12 @@ const start = async (client = new Client()) => {
             console.log('[SERVIDOR] Servidor iniciado!')
 
             // Forçando para continuar na sessão atual
-            client.onStateChanged((estado) => {
-                console.log('[ESTADO CLIENTE]', estado)
-                if (estado === 'CONFLICT' || estado === 'UNLAUNCHED') client.forceRefocus()
-            })
+            client.onStateChanged(state=>{
+                console.log('statechanged', state)
+                if(state==="CONFLICT" || state==="UNLAUNCHED") client.forceRefocus();
+            
+                if(state==='UNPAIRED') console.log('LOGGED OUT!!!!')
+              });
 
             // Ouvindo mensagens
             client.onMessage((async (message) => {
@@ -79,12 +78,13 @@ const start = async (client = new Client()) => {
                 await cadastrarGrupo(chat.id, "added", client)
                 let gInfo = await client.getGroupInfo(chat.id)
                 await client.sendText(chat.id, criarTexto(msgs_texto.geral.entrada_grupo, gInfo.title))
+                await client.sendText(chat.id, criarTexto(msgs_texto.geral.entrada_grupo2, gInfo.title))
             }))
 
             // Ouvindo ligações recebidas
             client.onIncomingCall(( async (call) => {
                 await client.sendText(call.peerJid, msgs_texto.geral.sem_ligacoes).then(async ()=>{
-                    client.contactBlock(call.peerJid)
+                    //client.contactBlock(call.peerJid)
                 })
             }))
 
@@ -99,11 +99,11 @@ const start = async (client = new Client()) => {
         console.log(err)
         console.error(corTexto("[ERRO FATAL]","#d63e3e"), err.message)
         setTimeout(()=>{
-            return client.kill()
+            return process.exit(0)
         },10000)
     }
 }
 
-create(config(true, start))
+create(config(chromium,true, start))
     .then(client => start(client))
     .catch((error) => consoleErro(error, 'OPEN-WA'))

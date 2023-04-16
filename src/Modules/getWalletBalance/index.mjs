@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const pessoasInfo = `\n vocês são mais de:\n 17235 pessoas em 734 grupos.\n\n`;
+const pessoasInfo = `\n vocês são mais de:\n 11804 pessoas em 559 grupos.\n\n`;
 const rechargeMsg = `devido a alta quantidade de requisições, a cota mensal de tokens do *chat GPT*.\n\n_vamos juntos resolver isso?_\nPara o *bot* continuar *gratuito*\n\n👉 doe *1 Real* de PIX:\n https://livepix.gg/obigleo\n\ndiariamente é consumido:\n 10USD ou 50 R$ (+taxas)\n ${pessoasInfo}`;
 
 

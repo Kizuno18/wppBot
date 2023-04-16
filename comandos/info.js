@@ -6,6 +6,7 @@ const { version } = require('../package.json')
 const {criarTexto, erroComandoMsg, removerNegritoComando, timestampParaData} = require("../lib/util")
 const path = require('path')
 const db = require('../lib/database')
+const { obterPaymentId, obterTransactionSucess } = require('../lib/api')
 const {botInfo} = require(path.resolve("lib/bot.js"))
 
 module.exports = info = async(client, message, abrirMenu) => {
@@ -41,6 +42,31 @@ module.exports = info = async(client, message, abrirMenu) => {
                 var usuarioMensagem = body.slice(10).trim(), resposta = criarTexto(msgs_texto.info.reportar.resposta, username, sender.id.replace("@c.us",""), usuarioMensagem)
                 await client.sendText(ownerNumber+"@c.us", resposta)
                 await client.reply(chatId,msgs_texto.info.reportar.sucesso,id)
+                break            
+                
+            case "!desbloquear":                
+                var usr = username
+                var mesg = sender.id.replace("@c.us","")
+                var payId = await obterPaymentId(100,usr,mesg)
+                var pixLink = "https://checkout.livepix.gg/"+ payId
+                await client.reply(chatId,`Para desbloquear o 🤖 *Kizuno18®* ~\nPIX de 1 Real 👇\n\n ${pixLink}\n_após concluir o PIX você deve digitar:_\n _!verificar_`,id)
+                break
+
+            case "!verificar":                
+                var usr = username
+                var mesg = sender.id.replace("@c.us","")
+                var isSucess = await obterTransactionSucess(mesg)
+                if (isSucess == true) {
+                    var alterou = await db.alterarTipoUsuario(mesg, "vip")                    
+                    await client.reply(chatId,`${usr}\n${mesg}\nVerificado com sucesso!`,id)
+                    if (!alterou) {
+                        await client.reply(chatId,`${usr}\n${mesg}\nNão foi possivel alterar o tipo de usuario!\n\n 👇 Entre em contato com o 🤖 *Kizuno18®* ~\n *!reportar*`,id)
+                    } else {
+                        await client.reply(chatId,`${usr}\n${mesg}\nTipo de usuario alterado com sucesso!\n\n Agora você tem acesso ao 🤖 *Kizuno18®* ~\n*!menu*\n*!comandos*\n*!entrargrupo link*`,id)
+                    }
+                } else {
+                await client.reply(chatId,`${usr}\n${mesg} Não encontrado!\n\nTalvez você não tenha desbloqueado 👇\n*!desbloquear*\n\nPara desbloquear o 🤖 *Kizuno18®* ~`,id)
+                }
                 break
             
             case '!meusdados':

@@ -1,7 +1,7 @@
 import sendToOpenApi from '../../Helpers/api.mjs'
 import axios from 'axios';
 
-const helpWords = "\n\no *Kizuno18* precisa de sua ajuda!\nsaiba mais em: *!sobre*\n_status:_ *aguardando pagamento.*";
+const helpWords = "\n\no *Kizuno18* precisa de sua ajuda!\nsaiba mais em: *!sobre*\n_status:_ *operacional*";
 
 const OpenIA = async (message, letra) => {
   try {
@@ -13,7 +13,8 @@ const OpenIA = async (message, letra) => {
     const response = await sendToOpenApi(message.body.replace("#", ""));
     if (response) {
       console.log(response);
-      message.reply(response+helpWords);
+      message.reply(response);
+      //+helpWords
     }
   }
   else{ 
