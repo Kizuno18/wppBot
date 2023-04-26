@@ -36,7 +36,7 @@ const MidJourneiIA = async (message) => {
         await message.react("✅");
     } catch (error) {      
         await message.react("❌");
-        await message.reply(`Ocorreu um erro: $Error 403 \n tente novamente mais tarde.\n enquanto isso use: \n*!img* para buscar uma imagem`);
+        await message.reply(`Ocorreu um erro: $Error 403 \n \n enquanto isso use: \n*!img* para buscar uma imagem`);
     } 
 };
 

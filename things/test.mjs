@@ -1,44 +1,26 @@
-import csv from 'csv-parser';
-import { createReadStream, writeFileSync } from 'fs';
+const http = require('http');
+const fetch = require('node-fetch');
 
-const batchSize = 1000;
-let currentBatch = 0;
-let batchData = [];
+const PORT = 3000; // porta do servidor
 
-createReadStream('usuarios.csv')
-  .pipe(csv())
-  .on('data', (row) => {
-    // Adiciona a linha atual ao lote atual
-    batchData.push(row);
+const GITHUB_API_URL = 'https://api.github.com';
+const GITHUB_OWNER = 'seu_usuario_no_github';
+const GITHUB_REPO = 'seu_repositorio_no_github';
+const GITHUB_PATH = 'caminho/para/o/arquivo/da/lista.txt';
 
-    // Verifica se o lote atual tem tamanho batchSize
-    if (batchData.length === batchSize) {
-      // Escreve o lote atual em um arquivo CSV separado
-      const filename = `batch_${currentBatch}.csv`;
-      writeFileSync(filename, convertToCsv(batchData));
+const getRandomString = async () => {
+  const response = await fetch(`${GITHUB_API_URL}/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_PATH}`);
+  const content = await response.json();
+  const list = content.content.split('\n').filter(Boolean); // converte o conteúdo do arquivo em uma lista de strings
+  return list[Math.floor(Math.random() * list.length)]; // retorna uma string aleatória da lista
+};
 
-      // Prepara o próximo lote
-      batchData = [];
-      currentBatch++;
-    }
-  })
-  .on('end', () => {
-    // Escreve o último lote, se houver
-    if (batchData.length > 0) {
-      const filename = `batch_${currentBatch}.csv`;
-      writeFileSync(filename, convertToCsv(batchData));
-    }
+const server = http.createServer(async (req, res) => {
+  const randomString = await getRandomString();
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end(randomString);
+});
 
-    console.log('Arquivos criados com sucesso!');
-  });
-
-function convertToCsv(data) {
-  // Converte um array de objetos para um CSV em formato de string
-  const headers = Object.keys(data[0]);
-  const csv = [headers.join(',')];
-  for (let row of data) {
-    const values = headers.map(header => row[header]);
-    csv.push(values.join(','));
-  }
-  return csv.join('\n');
-}
+server.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
+});

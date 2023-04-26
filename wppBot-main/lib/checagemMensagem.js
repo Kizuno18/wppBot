@@ -124,7 +124,7 @@ module.exports = checagemMensagem = async (client, message) => {
             }
 
             //SE O RECURSO DE LIMITADOR DIARIO DE COMANDOS ESTIVER ATIVADO E O COMANDO NÃO ESTIVER NA LISTA DE EXCEÇÔES/INFO/GRUPO/ADMIN
-            if(botInfo().limite_diario.status && command != "!verificar" && command != "!desbloquear"){
+            if(botInfo().limite_diario.status && command != "!verificar" && command != "!desbloquear" && command != "!menu" && command != "!meusdados" && command != "!reportar"){
                 if(!lista_comandos.excecoes_contagem.includes(command) && !lista_comandos.admin.includes(command) && !lista_comandos.grupo.includes(command) && !lista_comandos.info.includes(command) && !msgGuia){
                     await botVerificarExpiracaoLimite()
                     let ultrapassou = await db.ultrapassouLimite(sender.id)

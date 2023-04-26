@@ -13,8 +13,6 @@ const { criarTexto } = util;
 import msgs_texto from '../../lib/msgs.js';
 import { StickerCreate } from '../Modules/StickerBot/StickerBot.mjs';
 
-const needRecharge = false;
-
 const offendKeywords = [
   '!offend', '!ofenda', '!ofende', '!offenda', '!offende', '!ofender', '!offender',
   'offend', 'ofenda', 'ofende', 'offenda', 'offende', 'ofender', 'offender', '!xingar'
@@ -73,93 +71,91 @@ const restart = async (message, body) => {
   });
 };
 
-export const messagesGetter = async (sender, message, type) => {
-  try {
-    const { body, caption } = message;
-    var { pushname } = await message.getContact() || { pushname: '[Sem Nome]' };
-    const chat = await message.getChat();
-
-    if (await botInfo().limite_diario.status) {
-      await botVerificarExpiracaoLimite();
-    }
-
-      //SE O USUARIO NÃO FOR REGISTRADO, FAÇA O REGISTRO
-      var registrado = await db.verificarRegistro(sender)
-      if(!registrado) {
-             if  (pushname.toLowerCase().indexOf("cmds:") === -1) { // verifica se o nome do contato contém "cmd" (case-insensitive)
-              pushname += " cmds: 0"; // adiciona "cmds: 0" ao nome do contato
-                  console.log("Usuario Registrado: " + pushname);
-                }
-                await db.registrarUsuario(sender, pushname)
-                }
-
-    if (!chat.isGroup && !body.toLowerCase().startsWith('!') && !body.toLowerCase().startsWith('#') && type === 'chat' && !message.fromMe) {
-    if (await checkLimit(sender, message, pushname)) {
-      return;
-    }
-    await OpenIA(message);    
-    await db.addContagemDiaria(sender);
+const handleChatMessage = async (sender, message, pushname) => {
+  if (await checkLimit(sender, message, pushname)) {
     return;
   }
-    switch (true) {
-      case body.toLowerCase().startsWith('#') && type === 'chat':
-        if (await checkLimit(sender, message, pushname)) {
-          return;
-        }
-        if (needRecharge) {
-          const response = await getWalletBalance();
-          if (response) await infoMsg(message, response);
-        } else {
-          registerMsg(pushname, body.replace('#', ''));
-          await OpenIA(message);
-          await db.addContagemDiaria(sender);
-        }
-        break;     
+  await OpenIA(message);
+  await db.addContagemDiaria(sender);
+};
 
-        case body.toLowerCase().startsWith('!restart') && type === 'chat' && pushname === 'oBigLeo':
-          await restart(message, body);
-          break;
-      
-        case caption === '!sticker' || body.toLowerCase() === '!sticker':
-          await StickerCreate(message);
-          break;
-      
-        case offendKeywords.some((keyword) => body.toLowerCase().startsWith(keyword)):
-          if (await checkLimit(sender, message, pushname)) {
-            return;
-          }
-          const words = body.toLowerCase().split(' ');
-          const lastWord = words[words.length - 1];
-          console.log(`${pushname} offended ${lastWord}\n`);
-          await Offend(message);
-          await db.addContagemDiaria(sender);
-          break;
-      
-        case body.toLowerCase().startsWith('!imagine'):
-          registerMsg(pushname, body);
-          MidJourneiIA(message);
-          break;
-      
-        case body === '!credits' || body === '!creditos':
-          registerMsg(pushname, body);
-          await infoMsg(message, 'type !info');
-          break;
-      
-        case body === '!commands' || body === '!comandos':
-          registerMsg(pushname, body);
-          await infoMsg(message, cmdMsg);
-          break;
-      }
-      
-      await db.addContagemTotal(sender);
+const handleCommandMessage = async (sender, message, pushname, body, type) => {
+  switch (true) {
+  case body.toLowerCase().startsWith('#') && type === 'chat':
+    if (await checkLimit(sender, message, pushname)) {
+      return
     }
-     
-    catch (error) {
-      if (error.message.includes("Cannot read properties of null") && error.message.includes("max_comandos_dia")) {
-      // specific error you want to suppress
-      } else {
-      console.error(`An error occurred: ${error}`);
-      }
+  await handleChatMessage(sender, message, pushname);
+  break;
 
+  case body.toLowerCase().startsWith('!restart') && type === 'chat' && pushname === 'aBigLeo':
+    await restart(message, body);
+    break;
+  
+  case body.toLowerCase() === '!sticker':
+    if (await checkLimit(sender, message, pushname)) {
+      return
     }
+    await StickerCreate(message);
+    break;
+  
+  case offendKeywords.some((keyword) => body.toLowerCase().startsWith(keyword)):
+    if (await checkLimit(sender, message, pushname)) {
+      return
+    }
+    registerMsg(pushname, body);
+    await Offend(message);
+    await db.addContagemDiaria(sender);
+    break;
+  
+  case body.toLowerCase().startsWith('!imagine'):
+    registerMsg(pushname, body);
+    await MidJourneiIA(message);
+    break;
+  
+  case body === '!credits' || body === '!creditos':
+    registerMsg(pushname, body);
+    await infoMsg(message, 'type !info');
+    break;
+  
+  case body === '!commands' || body === '!comandos':
+    registerMsg(pushname, body);
+    await infoMsg(message, cmdMsg);
+    break;
   }
+  await db.addContagemTotal(sender);
+  };
+  
+  export const messagesGetter = async (sender, message, type) => {
+  try {
+  const { body, caption } = message;
+  var { pushname } = await message.getContact() || { pushname: '[Sem Nome]' };
+  const chat = await message.getChat();
+  
+  if (await botInfo().limite_diario.status) {
+    await botVerificarExpiracaoLimite();
+  }
+  
+  // SE O USUARIO NÃO FOR REGISTRADO, FAÇA O REGISTRO
+  var registrado = await db.verificarRegistro(sender);
+  if (!registrado) {
+    if (pushname.toLowerCase().indexOf("cmds:") === -1) {
+      pushname += " cmds: 0";
+      console.log("Usuario Registrado: " + pushname);
+    }
+    await db.registrarUsuario(sender, pushname);
+  }
+  
+  if (!chat.isGroup && !body.toLowerCase().startsWith('!') && !body.toLowerCase().startsWith('#') && type === 'chat' && !message.fromMe) {
+    await handleChatMessage(sender, message, pushname);
+  } else {
+    await handleCommandMessage(sender, message, pushname, body, type);
+  }
+} catch (error) {
+  if (error.message.includes("Cannot read properties of null") && error.message.includes("max_comandos_dia")) {
+  // specific error you want to suppress
+  } else {
+  console.error(`An error occurred: ${error}`);
+  }
+  }
+  };  

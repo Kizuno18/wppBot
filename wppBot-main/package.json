@@ -5,11 +5,13 @@
   "main": "index.mjs",
   "scripts": {
     "test": "node test.mjs",
-    "start": "pm2 start index.mjs && pm2 start app.cjs && pm2 start index2.mjs && pm2 start app2.cjs",
+    "start": "pm2 start index.mjs && pm2 start app.cjs && pm2 start index2.mjs && pm2 start app2.cjs && pm2 start app3.cjs && pm2 start index3.mjs",
     "app": "node app.cjs",
     "index": "node index.mjs",
     "app2": "node app2.cjs",
     "index2": "node index2.mjs",
+    "app3": "node app3.cjs",
+    "index3": "node index3.mjs",
     "main": "node main.js"
   },
   "author": "@oBigLeo",
