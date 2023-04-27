@@ -64,15 +64,22 @@ module.exports = info = async(client, message, abrirMenu) => {
                 var usr = username
                 var mesg = sender.id.replace("@c.us","")
                 var isSucess = await obterTransactionSucess(mesg)
-                if (isSucess == true) {
-                    var alterou = await db.alterarTipoUsuario(sender.id, isSucess)
+                if (isSucess) {
+                    var tmp
+                    if (isSucess > 0 && isSucess <3)
+                    tmp = "prata"
+                    if (isSucess >=3 && isSucess < 10)
+                    tmp = "ouro"
+                    if (isSucess >=10)
+                    tmp = "vip"
+                    var alterou = await db.alterarTipoUsuario(sender.id, tmp)
                     await client.reply(chatId,`${usr}\n${mesg}\nVerificado com sucesso!`,id)
                     if (!alterou) {
                         await client.reply(chatId,`${usr}\n${mesg}\nNão foi possivel alterar o tipo de usuario!\n\n 👇 Entre em contato com o 🤖 *Kizuno18®* ~\n *!reportar*`,id)
                     } else {
                         var dadosUsuario = await db.obterUsuario(sender.id), tipoUsuario = dadosUsuario.tipo
-                        tipoUsuario = msgs_texto.tipos[tipoUsuario]
-                        await client.reply(chatId,`${usr}\n${mesg}\nTipo de usuario alterado para *${tipoUsuario}*!\n\n Agora você tem acesso ao 🤖 *Kizuno18®* ~\n*!menu*\n*!comandos*\n*!tipos*`,id)
+                        tipo = msgs_texto.tipos[tipoUsuario]
+                        await client.reply(chatId,`${usr}\n${mesg}\nTipo de usuario alterado para *${tipo}*!\n\n Agora você tem acesso ao 🤖 *Kizuno18®* ~\n*!menu*\n*!comandos*\n*!tipos*`,id)
                     }
                 } else {
                 await client.reply(chatId,`${usr}\n${mesg} Não encontrado!\n\nTalvez você não tenha desbloqueado 👇\n*!desbloquear*\n\nPara desbloquear o 🤖 *Kizuno18®* ~`,id)

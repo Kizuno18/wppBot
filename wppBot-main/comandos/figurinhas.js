@@ -61,48 +61,48 @@ module.exports = figurinhas = async(client,message) => {
 
             
                 case '!sgif':
-                    if(isMedia || quotedMsg){
-                        var argSticker = args.length > 1 ? args[1].toLowerCase() : ""
-                        var stickerMetadata = {
-                            author: process.env.NOME_AUTOR_FIGURINHAS.trim(), 
-                            pack: `${process.env.NOME_AUTOR_FIGURINHAS.trim()} Sticker Animado`, 
-                            keepScale: false, 
-                            discord: "701084178112053288"
-                        }
-                        var configConversao = {
-                            endTime: "00:00:11.0",
-                            crop: true,
-                            fps:9,
-                            square:240
-                        }
-    
-                        if(argSticker == "1"){
-                            stickerMetadata.keepScale = true
-                            configConversao.crop = false
-                        } else if (argSticker == "2"){
-                            stickerMetadata.circle = true
-                        }
-    
-                        var dadosMensagem = {
-                            mimetype : (isMedia)? mimetype : quotedMsg.mimetype,
-                            duracao: (isMedia)? message.duration : quotedMsg.duration,
-                            mensagem: (isMedia)? message : quotedMsg
-                        }
-                        if((dadosMensagem.mimetype === 'video/mp4' || dadosMensagem.mimetype === 'image/gif') && dadosMensagem.duracao < 120){
-                            await client.reply(chatId, msgs_texto.geral.espera , id)
-                            var mediaData = await decryptMedia(dadosMensagem.mensagem, uaOverride)
-                            var base64 = `data:${dadosMensagem.mimetype};base64,${mediaData.toString('base64')}`
-                            client.sendMp4AsSticker(chatId, base64, configConversao, stickerMetadata)
-                            .catch((err)=>{
-                                consoleErro(err.message, "STICKER-GIF")
-                                client.reply(chatId, msgs_texto.figurinhas.sticker.erro_sgif , id)
-                            })
-                        } else {
-                            return client.reply(chatId, msgs_texto.figurinhas.sticker.video_invalido, id)
-                        }
-                    } else {
-                        return client.reply(chatId, erroComandoMsg(command), id)
-                    }
+                 //   if(isMedia || quotedMsg){
+                 //       var argSticker = args.length > 1 ? args[1].toLowerCase() : ""
+                 //       var stickerMetadata = {
+                 //           author: process.env.NOME_AUTOR_FIGURINHAS.trim(), 
+                 //           pack: `${process.env.NOME_AUTOR_FIGURINHAS.trim()} Sticker Animado`, 
+                 //           keepScale: false, 
+                 //           discord: "701084178112053288"
+                 //       }
+                 //       var configConversao = {
+                 //           endTime: "00:00:11.0",
+                 //           crop: true,
+                 //           fps:9,
+                 //           square:240
+                 //       }
+                 //       
+                 //       if(argSticker == "1"){
+                 //           stickerMetadata.keepScale = true
+                 //           configConversao.crop = false
+                 //       } else if (argSticker == "2"){
+                 //           stickerMetadata.circle = true
+                 //       }
+                 //       
+                 //       var dadosMensagem = {
+                 //           mimetype : (isMedia)? mimetype : quotedMsg.mimetype,
+                 //           duracao: (isMedia)? message.duration : quotedMsg.duration,
+                 //           mensagem: (isMedia)? message : quotedMsg
+                 //       }
+                 //       if((dadosMensagem.mimetype === 'video/mp4' || dadosMensagem.mimetype === 'image/gif') && dadosMensagem.duracao < 120){
+                 //           await client.reply(chatId, msgs_texto.geral.espera , id)
+                 //           var mediaData = await decryptMedia(dadosMensagem.mensagem, uaOverride)
+                 //           var base64 = `data:${dadosMensagem.mimetype};base64,${mediaData.toString('base64')}`
+                 //           client.sendMp4AsSticker(chatId, base64, configConversao, stickerMetadata)
+                 //           .catch((err)=>{
+                 //               consoleErro(err.message, "STICKER-GIF")
+                 //               client.reply(chatId, msgs_texto.figurinhas.sticker.erro_sgif , id)
+                 //           })
+                 //       } else {
+                 //           return client.reply(chatId, msgs_texto.figurinhas.sticker.video_invalido, id)
+                 //       }
+                 //   } else {
+                        return await client.reply(chatId, "_!sgif está indisponível._\n\nuse *!sticker* mencionando seu gif ou video.", id)
+                    //   }
                     break
 
             case "!tps":

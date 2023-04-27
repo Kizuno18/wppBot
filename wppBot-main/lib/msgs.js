@@ -806,7 +806,7 @@ const msgs_texto = {
             qtd_invalida: "[❗] A quantidade de comandos por dia está inválida",
             ativado: "✅ O Limite diário de comandos foi ativado com sucesso",
             desativado: "✅ O Limite diário de comandos foi desativado com sucesso",
-            resposta_excedeu_limite: "[❗] {p1} -> Você ultrapassou seu limite diário de comandos por dia (15).\n\n"+
+            resposta_excedeu_limite: "[❗] {p1} -> Você ultrapassou seu limite diário de comandos por dia (25).\n\n"+
             "para ter *Acesso:*\n_prata, ouro ou VIP_ \nuse *!desbloquear*\nou Use: !tipos\npara saber os tipos.\n🤖 *Kizuno18®* ~"
         },
         limitecomandos:{

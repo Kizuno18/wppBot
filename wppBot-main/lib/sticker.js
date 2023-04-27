@@ -79,22 +79,23 @@ module.exports = {
             }
     
             if(message.type == MessageTypes.VIDEO){
-                var stickerMetadata = {
-                    author: process.env.NOME_AUTOR_FIGURINHAS.trim(), 
-                    pack: `${process.env.NOME_AUTOR_FIGURINHAS.trim()} Stickers Animados`, 
-                    keepScale: false, 
-                    discord: "701084178112053288"
-                }
-                var configConversao = {
-                    endTime: "00:00:60.0",
-                    crop: true,
-                    fps:6,
-                    square:240
-                }
-                if(message.duration > 60) return
-                var mediaData = await decryptMedia(message, uaOverride)
-                var base64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
-                await client.sendMp4AsSticker(chatId, base64, configConversao, stickerMetadata)
+              // var stickerMetadata = {
+              //     author: process.env.NOME_AUTOR_FIGURINHAS.trim(), 
+              //     pack: `${process.env.NOME_AUTOR_FIGURINHAS.trim()} Stickers Animados`, 
+              //     keepScale: false, 
+              //     discord: "701084178112053288"
+              // }
+              // var configConversao = {
+              //     endTime: "00:00:60.0",
+              //     crop: true,
+              //     fps:6,
+              //     square:240
+              // }
+              // if(message.duration > 60) return
+              // var mediaData = await decryptMedia(message, uaOverride)
+              // var base64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
+              // await client.sendMp4AsSticker(chatId, base64, configConversao, stickerMetadata)
+              return await client.reply(chatId, "_auto-sticker de gif/video está indisponível._\n\nuse *!sticker* mencionando seu gif ou video.", id)
             }
         } catch(err){
             throw err
