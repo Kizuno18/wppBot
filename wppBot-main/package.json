@@ -5,7 +5,7 @@
   "main": "index.mjs",
   "scripts": {
     "test": "node test.mjs",
-    "start": "sleep 20 && pm2 start index.mjs && sleep 20 && pm2 start app.cjs && sleep 20 && pm2 start index2.mjs && sleep 20 && pm2 start app2.cjs && sleep 20 && pm2 start app3.cjs && sleep 20 && pm2 start index3.mjs",
+    "start": "ping 127.0.0.1 -n 21 > nul && pm2 start index.mjs && ping 127.0.0.1 -n 21 > nul && pm2 start app.cjs && ping 127.0.0.1 -n 21 > nul && pm2 start index2.mjs && ping 127.0.0.1 -n 21 > nul && pm2 start app2.cjs && ping 127.0.0.1 -n 21 > nul && pm2 start app3.cjs && ping 127.0.0.1 -n 21 > nul && pm2 start index3.mjs",
     "app": "node app.cjs",
     "index": "node index.mjs",
     "app2": "node app2.cjs",
