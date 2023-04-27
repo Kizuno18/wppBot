@@ -29,7 +29,6 @@ module.exports = downloads = async(client,message) => {
                         client.reply(chatId, msgs_texto.downloads.play.erro_download, id)
                     })      
                 } catch(err){
-                    console.log(err)
                     return await client.reply(chatId,err.message,id)
                 }
                 break
@@ -55,7 +54,7 @@ module.exports = downloads = async(client,message) => {
                 if(args.length === 1) return await client.reply(chatId, erroComandoMsg(command), id)
                 try{
                     var usuarioURL = body.slice(4).trim(), resultadosMidia = await api.obterMidiaFacebook(usuarioURL)
-                    console.log(resultadosMidia)
+                  //  console.log(resultadosMidia)
                     if(resultadosMidia.video_length > 120) return await client.reply(chatId, msgs_texto.downloads.fb.limite, id)
                     await client.reply(chatId, criarTexto(msgs_texto.downloads.fb.espera, resultadosMidia.video_length+"s"), id)
                     await client.sendFile(chatId, resultadosMidia.download[1].url, `fb-media.mp4`,"", id).catch(()=>{

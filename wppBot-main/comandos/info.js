@@ -44,12 +44,20 @@ module.exports = info = async(client, message, abrirMenu) => {
                 await client.reply(chatId,msgs_texto.info.reportar.sucesso,id)
                 break            
                 
-            case "!desbloquear":                
+            case "!desbloquear":    
+                var cost = 1, cargo = "prata"
+                if (args.length > 2 && args[1].toLowerCase() != "guia") return await client.reply(chatId, erroComandoMsg(command), id)
+                if (args.length == 2)
+                { 
+                  if (args[1].toLowerCase() == "prata") cost = 1, cargo = args[1]
+                  if (args[1].toLowerCase() == "ouro") cost = 3, cargo = args[1]
+                  if (args[1].toLowerCase() == "vip") cost = 10, cargo = args[1]
+                }
                 var usr = username
                 var mesg = sender.id.replace("@c.us","")
-                var payId = await obterPaymentId(100,usr,mesg)
+                var payId = await obterPaymentId(cost,usr,mesg)
                 var pixLink = "https://checkout.livepix.gg/"+ payId
-                await client.reply(chatId,`Para desbloquear o 🤖 *Kizuno18®* ~\nPIX de 1 Real 👇\n\n ${pixLink}\n_após concluir o PIX você deve digitar:_\n _!verificar_`,id)
+                await client.reply(chatId,`Para desbloquear o 🤖 *Kizuno18®* ~\nPIX de ${cost} Real 👇\nTítulo: _${cargo.toUpperCase()}_ \n\n ${pixLink}\n_após concluir o PIX você deve digitar:_\n _!verificar_`,id)
                 break
 
             case "!verificar":                
@@ -57,12 +65,14 @@ module.exports = info = async(client, message, abrirMenu) => {
                 var mesg = sender.id.replace("@c.us","")
                 var isSucess = await obterTransactionSucess(mesg)
                 if (isSucess == true) {
-                    var alterou = await db.alterarTipoUsuario(sender.id, "ouro")                    
+                    var alterou = await db.alterarTipoUsuario(sender.id, isSucess)
                     await client.reply(chatId,`${usr}\n${mesg}\nVerificado com sucesso!`,id)
                     if (!alterou) {
                         await client.reply(chatId,`${usr}\n${mesg}\nNão foi possivel alterar o tipo de usuario!\n\n 👇 Entre em contato com o 🤖 *Kizuno18®* ~\n *!reportar*`,id)
                     } else {
-                        await client.reply(chatId,`${usr}\n${mesg}\nTipo de usuario alterado para *OURO*!\n\n Agora você tem acesso ao 🤖 *Kizuno18®* ~\n*!menu*\n*!comandos*\n*!entrargrupo link*`,id)
+                        var dadosUsuario = await db.obterUsuario(sender.id), tipoUsuario = dadosUsuario.tipo
+                        tipoUsuario = msgs_texto.tipos[tipoUsuario]
+                        await client.reply(chatId,`${usr}\n${mesg}\nTipo de usuario alterado para *${tipoUsuario}*!\n\n Agora você tem acesso ao 🤖 *Kizuno18®* ~\n*!menu*\n*!comandos*\n*!tipos*`,id)
                     }
                 } else {
                 await client.reply(chatId,`${usr}\n${mesg} Não encontrado!\n\nTalvez você não tenha desbloqueado 👇\n*!desbloquear*\n\nPara desbloquear o 🤖 *Kizuno18®* ~`,id)

@@ -8,6 +8,7 @@ const  googleIt = require('google-it')
 const gis = require("g-i-s")
 const ffmpeg = require('fluent-ffmpeg')
 const fs = require('fs-extra')
+const db = require('../lib/database')
 const { consoleErro, obterNomeAleatorio, imagemUpload } = require('./util');
 const {criarTexto} = require("./util");
 const duration = require("format-duration-time").default;
@@ -301,7 +302,7 @@ module.exports = {
             if(err.message == "No result was found") throw new Error(msgs_texto.utilidades.letra.sem_resultados)
             else {
                 consoleErro(err.message, "API obterLetraMusica")
-                console.log(respostaMusica)
+              //  console.log(respostaMusica)
                 throw new Error(msgs_texto.utilidades.letra.erro_servidor)
             }
         }
@@ -433,7 +434,7 @@ module.exports = {
                     url
                 })
             })
-            console.log(resultados)
+          //  console.log(resultados)
             return resultados
         } catch(err){
             consoleErro(err.message, "API obterAnimesLancamentos")
@@ -608,7 +609,7 @@ module.exports = {
         };
       
         const data = {
-          "amount": amnt,
+          "amount": amnt+"00",
           "requester": {
             "visitorId": "4a5bd96773d4b91f66133a0278827a2e6ff80f47",
             "requestId": "b7eb7b04a8b4b0eabde69b84dc0a2945aa3e2356"
@@ -621,7 +622,7 @@ module.exports = {
         try {
           const response = await axios.post(url, data, { headers });
           const paymentId = response.data.paymentId;
-          console.log("pagamento gerado: "+ paymentId); // Exibe o valor de paymentId no console        
+        //  console.log("pagamento gerado: "+ paymentId); // Exibe o valor de paymentId no console        
           return paymentId;
         } catch (error) {
           console.error(error);
@@ -638,22 +639,77 @@ module.exports = {
         };
       
         try {
-          for (let i = 1; i <= 10; i++) {
-            const url = `https://webservice.livepix.gg/dashboard/transactions/?page=${i}`;
-            const response = await axios.get(url, { headers });
-            const data = response.data;
-            const searchText = msg;
-      
-            const found = data.some(item => item.message === searchText);
-            if (found) {
-              return true;
-            }
-          }
+            for (let i = 1; i <= 10; i++) {
+                const url = `https://webservice.livepix.gg/dashboard/transactions/?page=${i}`;
+                const response = await axios.get(url, { headers });
+                const data = response.data;
+                const searchText = msg;
+              
+                const itemWithSearchText = data.find(item => item.message === searchText);
+                if (itemWithSearchText) {
+                  const amount = itemWithSearchText.amount;
+                  return amount;
+                }
+              }              
           return false;
         } catch (error) {
           console.error(error);
         }
       },
+      
+
+      verificarMembros: async () => {
+        const headers = {
+            'Accept': 'application/json',
+            'Cookie': 'token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwczovL2xpdmVwaXguZ2ciLCJpYXQiOjE2Nzg1NDAwNzYsImlzcyI6Imh0dHBzOi8vbGl2ZXBpeC5nZyIsInNlc3Npb24iOiI2NDBjN2QyY2YwOWY3MTA0MmE0ZDlmZWMiLCJzdWIiOiI2MmYxNzQ3YTVhOTkyZWNkNGUwYzE0ZDUifQ.QENxFIMpx9dED0MfBMkBH-cx3vLSwNQsIz1JOysB2OF8mrS4zLqxmv9X42vwGjfRCIMZ8QgEJ29FOTSgQxSLgmwZgQVajEjYuFnNhCRf44FjNNBeGasqVRFyKrveVn9Hnt-gTSoPiUxBs-clzL97n8hf1dq6mfmGmIPUo0mfmvQ; _ga=GA1.1.1120684024.1681179340; visitorId=92635825-302d-4e2b-a338-04322a216557; _ga_DC3GM8RENN=GS1.1.1681347664.5.1.1681349520.0.0.0',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'
+          };
+      
+        try {
+          const phoneNumbers = new Set();
+          const amountByPhone = {}; // objeto para armazenar o valor de amount para cada telefone
+      
+          for (let i = 1; i <= 10; i++) {
+            const url = `https://webservice.livepix.gg/dashboard/transactions/?page=${i}`;
+            const { data } = await axios.get(url, { headers });
+      
+            data.forEach((item) => {
+              const phoneNumberRegex = /\d{12,13}/;
+              const match = item.message && item.message.match(phoneNumberRegex);
+      
+              if (match) {
+                const phoneNumber = match[0];
+                const amount = item.amount;
+                if (phoneNumber && !phoneNumbers.has(phoneNumber)) {
+                  phoneNumbers.add(phoneNumber);
+                  amountByPhone[phoneNumber] = amount; // armazena o valor de amount para o telefone correspondente
+                } else if (phoneNumber && amountByPhone[phoneNumber]) {
+                  amountByPhone[phoneNumber] += amount; // soma o valor de amount para o telefone correspondente
+                }
+              }
+            });
+          }
+      
+          const usuarios = await db.obterUsuariosTipo('ouro');
+          const userIds = usuarios.map((usr) => usr.id_usuario.replace('@c.us', ''));
+      
+          for (const phoneNumber of phoneNumbers) {
+            const amount = amountByPhone[phoneNumber];
+            if (amount >= 1 && amount < 3) {
+              await db.alterarTipoUsuario(`${phoneNumber}@c.us`, 'prata');
+            } else if (amount >= 3 && amount < 10) {
+                console.log(phoneNumber+" "+amount)
+              await db.alterarTipoUsuario(`${phoneNumber}@c.us`, 'ouro');
+            } else if (amount >= 10) {
+              await db.alterarTipoUsuario(`${phoneNumber}@c.us`, 'VIP');
+            }
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      
+      
       
       
       

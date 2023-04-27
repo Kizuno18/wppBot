@@ -48,6 +48,7 @@ module.exports = {
 |>---- ☾ ❓ *INFO/SUPORTE* ❓☽
 |
 |- *!info* - Informações do bot e contato do dono.
+|- *!tipos* - Informações dos tipos e usuarios.
 |- *!reportar* [mensagem] - Reporte um problema para o dono.
 |- *!meusdados* - Exibe seus dados de uso.
 |

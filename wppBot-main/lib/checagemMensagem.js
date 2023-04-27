@@ -11,7 +11,8 @@ const lista_comandos = JSON.parse(fs.readFileSync(path.resolve('comandos/comando
 
 module.exports = checagemMensagem = async (client, message) => {
     try {
-        if (!message) return false; // add this line
+        if (!message || !message.id || !message.sender || !message.sender.id) return false;
+
         var groupMain = "120363142529983568@g.us"
         const {t, sender, isGroupMsg, chat, type, caption, id, chatId, body} = message;
         let {formattedTitle} = chat, { pushname, verifiedName, formattedName } = sender || {}, username = pushname || verifiedName || formattedName
@@ -62,21 +63,33 @@ module.exports = checagemMensagem = async (client, message) => {
                 await db.registrarDono(sender.id, username)
             }
             else {
-                   
-               if  (username.toLowerCase().indexOf("cmds:") === -1) { // verifica se o nome do contato contém "cmd" (case-insensitive)
-                    username += " cmds: 0"; // adiciona "cmds: 0" ao nome do contato
-                    console.log("Usuario Registrado: " + username);
-                  }
-                  await db.registrarUsuario(sender.id, username)
+                const usuario = await db.obterUsuario(sender.id), cmds_total = usuario?.comandos_total || 0
+                if (!username.includes("cmds:")) { // verifica se o nome do contato contém "cmd" (case-insensitive) e se o objeto usuario não é nulo
+                    let usernamer = usuario + " cmds:" + cmds_total; // adiciona "cmds: 0" ao nome do contato
+                    //console.log("Usuario Registrado: " + usernamer);                    
+                    await db.registrarUsuario(sender.id, usernamer)
+                } else await db.registrarUsuario(sender.id, username)
             }
         } else {
-            if(isOwner) await db.verificarDonoAtual(sender.id)       
-        }
+            let usuario = await db.obterUsuario(sender.id)
+            if (usuario && isOwner) await db.verificarDonoAtual(sender.id)       
+        }        
 
         //SE FOR ALGUM COMANDO EXISTENTE
         if(comandoExiste){
             //ATUALIZE NOME DO USUÁRIO 
-            await db.atualizarNome(sender.id, username)
+            
+            let usernamer;
+            const usuario = await db.obterUsuario(sender.id), cmds_total = usuario?.comandos_total || 0
+            if (usuario) {
+                if (username.includes("cmds:")) {
+                    await db.atualizarNome(sender.id, username);
+                } else {
+                    usernamer = usuario.nome + " cmds:" + cmds_total;
+                    await db.atualizarNome(sender.id, usernamer);
+                }
+            }
+            
 
             //SE FOR MENSAGEM DE GRUPO E USUARIO FOR BLOQUEADO RETORNE
             if (isGroupMsg && isBlocked) return false
@@ -110,6 +123,26 @@ module.exports = checagemMensagem = async (client, message) => {
             if (!verifica)
               return false
             
+
+            
+            //LIMITACAO DE isOnGroupSeen()
+            
+          //  async function botVerificarIsOnGroupSeen(group) {               
+          //      var isOnGroupSeen = await db.isOnGroupSeen(client, group)
+          //      if (!isOnGroupSeen) {
+          //          await client.reply(chatId, criarTexto(msgs_texto.grupo.isntOnGroupSeen, username), id)
+          //          return false
+          //  }
+          //      else
+          //          return true        
+          //  }
+          //  
+          //  if (isGroupMsg) {
+          //  var verificaSeen = await botVerificarIsOnGroupSeen(groupId);
+          //  if (!verificaSeen)
+          //  return false
+          //  }
+           
             
             //BLOQUEIO GLOBAL DE COMANDOS
             if(await verificarBloqueioGlobal(command) && !isOwner){
@@ -124,7 +157,7 @@ module.exports = checagemMensagem = async (client, message) => {
             }
 
             //SE O RECURSO DE LIMITADOR DIARIO DE COMANDOS ESTIVER ATIVADO E O COMANDO NÃO ESTIVER NA LISTA DE EXCEÇÔES/INFO/GRUPO/ADMIN
-            if(botInfo().limite_diario.status && command != "!verificar" && command != "!desbloquear" && command != "!menu" && command != "!meusdados" && command != "!reportar"){
+            if(botInfo().limite_diario.status){
                 if(!lista_comandos.excecoes_contagem.includes(command) && !lista_comandos.admin.includes(command) && !lista_comandos.grupo.includes(command) && !lista_comandos.info.includes(command) && !msgGuia){
                     await botVerificarExpiracaoLimite()
                     let ultrapassou = await db.ultrapassouLimite(sender.id)
@@ -153,7 +186,6 @@ module.exports = checagemMensagem = async (client, message) => {
                 let limitarMensagens = await botLimitarMensagensPv(sender.id, tipo_usuario_pv)
                 if(limitarMensagens.bloquear_usuario) {
                     await client.sendText(sender.id, limitarMensagens.msg)
-                    //client.contactBlock(sender.id)
                     return false
                 }
             }

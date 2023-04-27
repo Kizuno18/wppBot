@@ -86,7 +86,7 @@ client.on("message_create", async message => {
     if (chat.isGroup) {
       sender = message.id.participant;
     }
-    messagesGetter(sender, message, message.type);  
+    await messagesGetter(sender, message, message.type);  
   }
 });
 

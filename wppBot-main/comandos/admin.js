@@ -9,6 +9,7 @@ const {desbloquearComandosGlobal, bloquearComandosGlobal} = require("../lib/bloq
 const cadastrarGrupo = require("../lib/cadastrarGrupo")
 const db = require('../lib/database')
 const fs = require("fs-extra")
+const { verificarMembros } = require('../lib/api')
 const path = require("path")
 const {botAlterarLimitador, botInfo, botAlterarLimiteDiario, botQtdLimiteDiario, botAlterarLimitarMensagensPv, botAlterarAutoSticker, botAlterarAntitrava, botAlterarPvLiberado} = require('../lib/bot')
 const fsnormal = require('fs');
@@ -48,7 +49,7 @@ module.exports = admin = async(client,message) => {
         const isOwner = ownerNumber == sender.id.replace(/@c.us/g, '')        
         const contacts = await client.getAllContacts();
         
-        if ((!isOwner) && !command.startsWith('!entrargrupo')) return client.reply(chatId, msgs_texto.permissao.apenas_dono_bot, id)
+        if ((!isOwner) && !command.startsWith('!entrargrupo') && !command.startsWith('!tipos')) return client.reply(chatId, msgs_texto.permissao.apenas_dono_bot, id)
         
 
         switch(command){
@@ -140,27 +141,26 @@ module.exports = admin = async(client,message) => {
                 break
             
                 case '!teste':
-
-                    console.log(groupId)
-                    await client.reply(chatId, "Teste concluido.", id)
+                    await verificarMembros()
+                    await client.sendText(ownerNumber+"@c.us", "Todos os membros receberam seus cargos.");
                 break
                
                     
               //      const minDelay = 1000; // minimum delay in milliseconds
               //      const maxDelay = 5000; // maximum delay in milliseconds    
               //      const messages = [
-              //          "🤖 Kizuno18® ~ Cheguei para divertir vocês!\n_sou o seu assistente pessoal e de diversão, sou perfeito para ajudar a tornar suas reuniões de família mais dinâmicas. _\n\n Comandos: \n !comandos\n*!menu*\n*!entrargrupo link*",
-              //          "🤖 Kizuno18® ~ Oi!\n_sou o seu assistente pessoal e de diversão, venha me conhecer e veja todos os benefícios que estou preparado para oferecer._\n\n Comandos: \n !comandos\n*!menu*\n*!entrargrupo link*",
-              //          "🤖 Kizuno18® ~ Seja bem-vindo (a)!\n_sou o seu assistente pessoal e de diversão, sou a melhor maneira de animar qualquer reunião._\n\n Comandos: \n !comandos\n*!menu*\n*!entrargrupo link*",
-              //          "🤖 Kizuno18® ~ Feliz em conhece-lo (a)!\n_sou o seu assistente pessoal e de diversão, pronto para ajudá-lo(a) a divertir as amigos._\n\n Comandos: \n !comandos\n*!menu*\n*!entrargrupo link*",
-              //          "🤖 Kizuno18® ~ Bom dia!\n_sou o seu assistente pessoal e de diversão, sua experiência de entretenimento está a um passo de distância. _\n\n Comandos: \n !comandos\n*!menu*\n*!entrargrupo link*",
-              //          "🤖 Kizuno18® ~ O que faz ?\n_sou o seu assistente pessoal e de diversão, então qual é o lazer que cabe em seu cardápio para esta noite?._\n\n Comandos: \n !comandos\n*!menu*\n*!entrargrupo link*",
-              //          "🤖 Kizuno18® ~ O que vamos fazer hoje ?\n_sou o seu assistente pessoal e de diversão, não se preocupe, eu tenho vários jogos e vídeos para tornar sua noite divertida._\n\n Comandos: \n !comandos\n*!menu*\n*!entrargrupo link*",
-              //          "🤖 Kizuno18® ~ É hora de DigitMotion \n_sou o seu assistente pessoal e de diversão, então estou pronto para o entretenimento que você planejou._\n\n Comandos: \n !comandos\n*!menu*\n*!entrargrupo link*",
-              //          "🤖 Kizuno18® ~ Hora de diversão!\n_sou o seu assistente pessoal e de diversão, tente me pedir o que quiser e eu vou procurar para você._\n\n Comandos: \n !comandos\n*!menu*\n*!entrargrupo link*",
-              //          "🤖 Kizuno18® ~ Experimente algo novo esta noite!\n_sou o seu assistente pessoal e de diversão, para ajudá-lo a sair da rotina e descobrir novas atividades divertidas._\n\n Comandos: \n !comandos\n*!menu*\n*!entrargrupo link*",
-              //          "🤖 *Kizuno18®* ~ Online novamente.\n_sou o seu assistente pessoal e de diversão, estarei aqui quando precisar._\n\n Comandos: \n *!comandos*\n*!menu*\n*!entrargrupo link*",
-              //          "🤖 *Kizuno18®* ~ Bem-vindo(a) de volta!\n_sou o seu assistente pessoal e de diversão, estou aqui para ajudá-lo(a)._\n\n Comandos: \n *!comandos*\n*!menu*\n*!entrargrupo link*",
+              //          "🤖 Kizuno18® ~ Cheguei para divertir vocês!\n_sou o seu assistente pessoal e de diversão, sou perfeito para ajudar a tornar suas reuniões de família mais dinâmicas. _\n\n Comandos: \n !comandos\n*!menu*\n*!tipos*",
+              //          "🤖 Kizuno18® ~ Oi!\n_sou o seu assistente pessoal e de diversão, venha me conhecer e veja todos os benefícios que estou preparado para oferecer._\n\n Comandos: \n !comandos\n*!menu*\n*!tipos*",
+              //          "🤖 Kizuno18® ~ Seja bem-vindo (a)!\n_sou o seu assistente pessoal e de diversão, sou a melhor maneira de animar qualquer reunião._\n\n Comandos: \n !comandos\n*!menu*\n*!tipos*",
+              //          "🤖 Kizuno18® ~ Feliz em conhece-lo (a)!\n_sou o seu assistente pessoal e de diversão, pronto para ajudá-lo(a) a divertir as amigos._\n\n Comandos: \n !comandos\n*!menu*\n*!tipos*",
+              //          "🤖 Kizuno18® ~ Bom dia!\n_sou o seu assistente pessoal e de diversão, sua experiência de entretenimento está a um passo de distância. _\n\n Comandos: \n !comandos\n*!menu*\n*!tipos*",
+              //          "🤖 Kizuno18® ~ O que faz ?\n_sou o seu assistente pessoal e de diversão, então qual é o lazer que cabe em seu cardápio para esta noite?._\n\n Comandos: \n !comandos\n*!menu*\n*!tipos*",
+              //          "🤖 Kizuno18® ~ O que vamos fazer hoje ?\n_sou o seu assistente pessoal e de diversão, não se preocupe, eu tenho vários jogos e vídeos para tornar sua noite divertida._\n\n Comandos: \n !comandos\n*!menu*\n*!tipos*",
+              //          "🤖 Kizuno18® ~ É hora de DigitMotion \n_sou o seu assistente pessoal e de diversão, então estou pronto para o entretenimento que você planejou._\n\n Comandos: \n !comandos\n*!menu*\n*!tipos*",
+              //          "🤖 Kizuno18® ~ Hora de diversão!\n_sou o seu assistente pessoal e de diversão, tente me pedir o que quiser e eu vou procurar para você._\n\n Comandos: \n !comandos\n*!menu*\n*!tipos*",
+              //          "🤖 Kizuno18® ~ Experimente algo novo esta noite!\n_sou o seu assistente pessoal e de diversão, para ajudá-lo a sair da rotina e descobrir novas atividades divertidas._\n\n Comandos: \n !comandos\n*!menu*\n*!tipos*",
+              //          "🤖 *Kizuno18®* ~ Online novamente.\n_sou o seu assistente pessoal e de diversão, estarei aqui quando precisar._\n\n Comandos: \n *!comandos*\n*!menu*\n*!tipos*",
+              //          "🤖 *Kizuno18®* ~ Bem-vindo(a) de volta!\n_sou o seu assistente pessoal e de diversão, estou aqui para ajudá-lo(a)._\n\n Comandos: \n *!comandos*\n*!menu*\n*!tipos*",
               //         
               //          // Add more messages here but keep commands consistent
               //        
@@ -209,7 +209,7 @@ module.exports = admin = async(client,message) => {
                     let username = await contact.name || contact.pushname || contact.formattedName || contact.id.replace("@c.us", "");
                     var registrado = await db.verificarRegistro(contactId)
                     if(!registrado) {
-                    if  (username.toLowerCase().indexOf("cmds:") === -1) { // verifica se o nome do contato contém "cmd" (case-insensitive)
+                    if (!pushname.includes("cmds:")) { // verifica se o nome do contato contém "cmd" (case-insensitive)
                       username += " cmds: 0"; // adiciona "cmds: 0" ao nome do contato
                       //console.log("name atualizado: " + username);
                     }
@@ -275,10 +275,10 @@ module.exports = admin = async(client,message) => {
                 }
                 for (var usuario of usuariosDesbloqueados){
                     if(!blockNumber.includes(usuario)) {
-                        await client.sendTextWithMentions(chatId, criarTexto(msgs_texto.admin.desbloquear.ja_desbloqueado, usuario.replace(/@c.us/g,'')))
+                        await client.sendTextWithMentions(chatId, criarTexto(msgs_texto.admin.unblock.ja_desbloqueado, usuario.replace(/@c.us/g,'')))
                     } else {
                         client.contactUnblock(usuario)
-                        await client.sendTextWithMentions(chatId, criarTexto(msgs_texto.admin.desbloquear.sucesso, usuario.replace(/@c.us/g,'')))
+                        await client.sendTextWithMentions(chatId, criarTexto(msgs_texto.admin.unblock.sucesso, usuario.replace(/@c.us/g,'')))
                     }
                 }
                 break
@@ -393,13 +393,13 @@ module.exports = admin = async(client,message) => {
              case "!usuarios":
                  if(args.length === 1) return await client.reply(chatId, erroComandoMsg(command), id)
                  var tipo = args[1].toLowerCase()
-                 var usuarios = await db.obterUsuariosTipoOld(tipo)
+                 var usuarios = await db.obterUsuariosTipo(tipo)
                  if(usuarios.length == 0) return await client.reply(chatId, msgs_texto.admin.usuarios.nao_encontrado, id)
                  var respostaItens = ''
-                // for (var usuario of usuarios) {
-                //   respostaItens += criarTexto(msgs_texto.admin.usuarios.resposta_item, usuario.nome, usuario.id_usuario.replace("@c.us", ""), usuario.comandos_total)
-                // }
-                 var resposta = criarTexto(msgs_texto.admin.usuarios.resposta_titulo, tipo.toUpperCase(), usuarios.length, "adicionados ao arquivo")
+                 for (var usuario of usuarios) {
+                   respostaItens += criarTexto(msgs_texto.admin.usuarios.resposta_item, usuario.nome, usuario.id_usuario.replace("@c.us", ""), usuario.comandos_total)
+                 }
+                 var resposta = criarTexto(msgs_texto.admin.usuarios.resposta_titulo, tipo.toUpperCase(), usuarios.length, respostaItens)
                  await saveNumbersToCsv(usuarios); // Salva os números dos usuários em um arquivo CSV
                  await client.sendTextWithMentions(chatId, resposta)
                  break
@@ -433,8 +433,8 @@ module.exports = admin = async(client,message) => {
         
             case "!tipos":
                 var tipos = botInfo().limite_diario.limite_tipos, respostaTipos = ''
-                for (var tipo in tipos) respostaTipos += criarTexto(msgs_texto.admin.tipos.item_tipo, msgs_texto.tipos[tipo], tipos[tipo] || "∞")
-                await client.reply(chatId, criarTexto(msgs_texto.admin.tipos.resposta, respostaTipos), id)
+                for (var tipo in tipos) respostaTipos += criarTexto(msgs_texto.admin.tipos.item_tipo, msgs_texto.tipos[tipo], tipos[tipo] || "∞",(await db.obterUsuariosTipo(tipo)).length)
+                await client.reply(chatId, criarTexto(msgs_texto.admin.tipos.resposta, respostaTipos, ), id)
                 break
             
             case "!rtodos":

@@ -50,8 +50,10 @@ const registerMsg = (pushname, msg) => console.log(`${pushname} asked:\n${msg}\n
 const infoMsg = async (message, msg) => message.reply(msg);
 
 const checkLimit = async (sender, message, pushname) => {
+  await botVerificarExpiracaoLimite()
   const ultrapassou = await db.ultrapassouLimite(sender);
   if (ultrapassou) {
+    console.log("ultrapassou o Limite: "+sender)
     await infoMsg(message, criarTexto(msgs_texto.admin.limitediario.resposta_excedeu_limite, pushname));
     return true;
   }
@@ -137,25 +139,36 @@ const handleCommandMessage = async (sender, message, pushname, body, type) => {
   }
   
   // SE O USUARIO NÃO FOR REGISTRADO, FAÇA O REGISTRO
-  var registrado = await db.verificarRegistro(sender);
-  if (!registrado) {
-    if (pushname.toLowerCase().indexOf("cmds:") === -1) {
-      pushname += " cmds: 0";
-      console.log("Usuario Registrado: " + pushname);
-    }
-    await db.registrarUsuario(sender, pushname);
-  }
+  var registrado = await db.verificarRegistro(sender)
+  if(!registrado) {
+        let usuario = await db.obterUsuario(sender), cmds_total = usuario?.comandos_total || 0
+          if (!pushname) pushname = "";
+          if (!pushname.toLowerCase().includes("cmds:")) { // verifica se o nome do contato contém "cmd" (case-insensitive) e se o objeto usuario não é nulo              
+              let usernamer = `${usuario?.nome ?? ''} cmds:${cmds_total}`;
+             // console.log("Usuario Registrado: " + usernamer);                    
+              await db.registrarUsuario(sender, usernamer)
+          } else await db.registrarUsuario(sender, pushname)
+      
+  }     
+
+  //SE FOR ALGUM COMANDO EXISTENTE
+  //ATUALIZE NOME DO USUÁRIO
+      
+      let usuario = await db.obterUsuario(sender), cmds_total = usuario?.comandos_total || 0
+      if (usuario) {
+          if (pushname && !pushname.includes("cmds:")) {        
+             let usernamer = `${usuario?.nome ?? ''} cmds:${cmds_total}`;
+              await db.atualizarNome(sender, usernamer);
+          }
+          else await db.atualizarNome(sender, pushname);
+      }
+      
   
   if (!chat.isGroup && !body.toLowerCase().startsWith('!') && !body.toLowerCase().startsWith('#') && type === 'chat' && !message.fromMe) {
     await handleChatMessage(sender, message, pushname);
   } else {
     await handleCommandMessage(sender, message, pushname, body, type);
   }
-} catch (error) {
-  if (error.message.includes("Cannot read properties of null") && error.message.includes("max_comandos_dia")) {
-  // specific error you want to suppress
-  } else {
-  console.error(`An error occurred: ${error}`);
-  }
-  }
-  };  
+} catch (error){ console.error(`An error occurred: ${error}`);
+}
+};  

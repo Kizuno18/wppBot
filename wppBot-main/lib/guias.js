@@ -8,7 +8,11 @@ module.exports = {
         meusdados: cabecalho+
         "Ex: *!meusdados* - Exibe seus dados gerais como comandos, mensagens, tipo de usuário, etc.",
         reportar: cabecalho+
-        "Ex: *!reportar* mensagem - Reporta uma mensagem para a administração do Bot.",
+        "Ex: *!reportar* mensagem - Reporta uma mensagem para a administração do Bot.",               
+        desbloquear: cabecalho+
+        "Ex: *!desbloquear* tipo\n _Para desbloquear o Título mencionado._\n\n"+
+        "Ex: *!desbloquear* prata\n _Para o bot desbloquear o Título *PRATA*._\n\n"+
+        "Por padrão você pode usar apenas *!desbloquear* que já se tornará _prata._\nporém existem outros: *!tipos*",
     },
     figurinhas: {
         s: cabecalho+
@@ -317,7 +321,7 @@ module.exports = {
         "Ex: *!bloquear* @membro - Para o bot bloquear o membro mencionado.\n\n"+
         "Ex: *!bloquear* +55 (xx) xxxxx-xxxx - Para o bot bloquear o número digitado.\n\n"+
         "Ex: Responder alguém com *!bloquear* - Para o bot bloquear o membro que você respondeu.",
-        desbloquear: cabecalho+
+        unblock: cabecalho+
         "Ex: *!unblock* @membro - Para o bot desbloquear o membro mencionado.\n\n"+
         "Ex: *!unblock* +55 (xx) xxxxx-xxxx - Para o bot desbloquear o número digitado.\n\n"+
         "Ex: Responder alguém com *!unblock* - Para o bot desbloquear o membro que você respondeu.",
@@ -374,7 +378,7 @@ module.exports = {
         desligar: cabecalho+
         "Ex: *!desligar* - Desliga o BOT.",
         ping: cabecalho+
-        "Ex: *!ping* - Exibe as informações do sistema do BOT e o tempo de resposta dele."
+        "Ex: *!ping* - Exibe as informações do sistema do BOT e o tempo de resposta dele." ,
     },
 
 }

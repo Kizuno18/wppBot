@@ -12,13 +12,7 @@ const msgs_texto = {
         min_membros: "O grupo precisa de no mínimo {p1} para o bot ser convidado.",
         entrada_grupo: "Saudações *{p1}* , se tiverem alguma dúvida só digitar \n *!menu*\n *!comandos*",
         entrada_grupo2: `
-        _recentemente o Kizuno18 precisou mudar de número devido a problemas com o WhatsApp_
-
-        Por isso, afim de evitar falta de comunicação no futuro, *criamos um grupo oficial*
-        
-        👉 Entre pra não perder o Kizuno18 de vista 👁️
-        
-        https://chat.whatsapp.com/DwHiCkxpribAvBU3752Tll`,
+        📦 Adicione o [🤖 Kizuno18® Interpretador].\n+55 68 9961-7736\n556899617736\n\n_ao adiciona-lo ao grupo, o Kizuno18 estará pronto para responder suas mensagens mais rápido, pois um lerá e o outro responderá._`,
         sem_ligacoes: "[❗] Não posso receber ligações.",
         comando_invalido: "[❗] Parece que você não digitou corretamente o comando ou não sabe como usá-los, digite o comando *!menu* para mais informações.",
         cmd_erro: "[❗] Ops, parece que você usou o comando *{p1}* incorretamente. Quer aprender a usar?\n\n Digite :\n  - Ex: *{p2} guia* para ver o guia.",
@@ -281,8 +275,9 @@ const msgs_texto = {
         }
     },
     grupo: {
-        isntOnGroup: "*{p1}*, para executar comandos👉\n Você precisa estar no grupo de avisos. ou desbloquear: *!desbloquear*\n  *🤖 Kizuno18® ~ [Oficial]*.\n\n_pedimos isso, pois caso der problemas com o Número do Kizuno18, você será atualizado sobre o novo número e não perderá o contato._\n\n https://chat.whatsapp.com/KpHssSesBhn4V0YP0aPz4Z",
-       regras:{
+        isntOnGroup: "*{p1}*, para executar comandos👉\n Você precisa estar no grupo de avisos:\nhttps://chat.whatsapp.com/KpHssSesBhn4V0YP0aPz4Z \n\n✅ Para não precisar ficar no grupo de *avisos* você pode:\n *!desbloquear*\n \n *🤖 Kizuno18® ~ [Oficial]*.\n\n_pedimos isso, pois caso der problemas com o Número do Kizuno18, você será atualizado sobre o novo número e não perderá o contato._",
+        isntOnGroupSeen: "*{p1}*, 👉 agora nós temos um Kizuno18 interpretador para grupos.\n_isso foi criado para aumentar a velocidade do *Kizuno18*, um responde vocês e o outro lê.\n\n*APENAS EM GRUPOS:* \nvocê precisa adicionar o [🤖 Kizuno18® Interpretador].\n+55 68 9961-7736\n556899617736",
+        regras:{
             sem_descrição: "[❗] O grupo ainda não tem uma descrição."
         },
         bemvindo:{
@@ -743,7 +738,7 @@ const msgs_texto = {
             erro: "[❗] Não foi possível bloquear o usuário (+{p1}), verifique se o número está correto e se o bot já teve contato com este usuário.",
             sucesso: "✅ O Usuário @{p1} foi *bloqueado* com sucesso"
         },
-        desbloquear:{
+        unblock:{
             ja_desbloqueado: "[❗] O Usuário @{p1} já está *desbloqueado*.",
             sucesso: "✅ O Usuário @{p1} foi *desbloqueado* com sucesso"
         },
@@ -763,7 +758,7 @@ const msgs_texto = {
         },
         usuarios: {
             nao_encontrado: "[❗] Não existem usuários com esse tipo ou você digitou um tipo inválido, confira os tipos disponíveis em *!tipos*",
-            resposta_titulo: "🤖 USUÁRIOS - {p1} ({p2})\n\n"+"{p3}",
+            resposta_titulo: "🤖 USUÁRIOS ({p4}) - {p1} ({p2})\n\n"+"{p3}",
             resposta_item: "-> {p1}  @{p2} - {p3} cmds\n"
         },
         limpartipo:{
@@ -812,7 +807,7 @@ const msgs_texto = {
             ativado: "✅ O Limite diário de comandos foi ativado com sucesso",
             desativado: "✅ O Limite diário de comandos foi desativado com sucesso",
             resposta_excedeu_limite: "[❗] {p1} -> Você ultrapassou seu limite diário de comandos por dia (15).\n\n"+
-            "para ter *Acesso OURO* \nuse *!desbloquear*\n🤖 *Kizuno18®* ~"
+            "para ter *Acesso:*\n_prata, ouro ou VIP_ \nuse *!desbloquear*\nou Use: !tipos\npara saber os tipos.\n🤖 *Kizuno18®* ~"
         },
         limitecomandos:{
             qtd_invalida: "[❗] A quantidade máxima de mensagens por minuto está inválida",
@@ -855,7 +850,7 @@ const msgs_texto = {
         tipos: {
             resposta: "🤖 TIPOS DE USUÁRIOS :\n\n"+
             "{p1}",
-            item_tipo: "{p1} - *{p2}* cmds/dia\n"
+            item_tipo: "{p1} - *{p2}* cmds/dia\n(Usuários: {p3})\n"
         },
         rconfig:{
             reset_sucesso: "🤖✅ As configurações dos grupos foram resetadas com sucesso"

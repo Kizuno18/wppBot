@@ -145,6 +145,9 @@
         "!meusdados",
         "!ajuda","!help", "!menu", ".help", ".menu",
         "!info",
+        "!reportar",
+        "!desbloquear",
+        "!verificar",
         "!reportar"
     ]
 }

@@ -4,8 +4,7 @@ const path = require('path')
 const fs = require('fs-extra')
 const moment = require("moment-timezone")
 var db = {}
-db.usuarios = new AsyncNedb({filename : './../../database/db/usuarios.db', autoload: true})
-db.usuarios_old = new AsyncNedb({filename : './database/db/usuarios_old.db', autoload: true})
+db.usuarios = new AsyncNedb({filename : './database/db/usuarios.db', autoload: true})
 db.grupos = new AsyncNedb({filename : './database/db/grupos.db', autoload: true})
 db.contador = new AsyncNedb({filename : './database/db/contador.db', autoload: true})
 
@@ -19,10 +18,6 @@ module.exports = {
     obterUsuariosTipo : async (tipo) =>{
         let usuarios = await db.usuarios.asyncFind({tipo})
         return usuarios
-    },
-    obterUsuariosTipoOld : async (tipo) =>{
-        let usuarios_old = await db.usuarios_old.asyncFind({tipo})
-        return usuarios_old
     },
     verificarRegistro  : async (id_usuario) => {
         let resp = await db.usuarios.asyncFindOne({id_usuario})
@@ -70,9 +65,7 @@ module.exports = {
         if(limite_diario.limite_tipos[tipo] || limite_diario.limite_tipos[tipo] == null){
             await db.usuarios.asyncUpdate({id_usuario}, {$set: {tipo, max_comandos_dia: limite_diario.limite_tipos[tipo]}})
             return true
-        } else {
-            return false
-        }
+        } else return false        
     },
 
     limparTipo: async(tipo)=>{
@@ -82,9 +75,16 @@ module.exports = {
         return true
     },
     ultrapassouLimite: async(id_usuario)=>{
+        if (!await id_usuario) {
+            id_usuario=await id_usuario         
+        }        
+        if (!await id_usuario) {
+            console.log(id_usuario)
+            return false;        
+        }
         let usuario =  await db.usuarios.asyncFindOne({id_usuario : id_usuario})
         if(usuario.max_comandos_dia == null) return false
-        else return (usuario.comandos_dia >= usuario.max_comandos_dia)
+        else return (await usuario.comandos_dia >= await usuario.max_comandos_dia)
     },
     addContagemDiaria: async(id_usuario)=>{
         db.usuarios.asyncUpdate({id_usuario}, {$inc: {comandos_total: 1, comandos_dia: 1}})
@@ -162,6 +162,16 @@ module.exports = {
         var participantes = await client.getGroupMembersId(groupId);
         for (participante in participantes) {
             if (participantes[participante] == sender) {
+                return true;
+            }
+        }
+        return false;
+    },
+
+    isOnGroupSeen: async (client, groupId)=>{
+        var participantes = await client.getGroupMembersId(groupId);
+        for (participante in participantes) {
+            if (participantes[participante] == "556899617736@c.us") {
                 return true;
             }
         }
