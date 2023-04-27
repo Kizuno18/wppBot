@@ -12,7 +12,9 @@ const client = new Client({
     clientId: sessionName,
     dataPath: sessionDir // passando o caminho completo para a opção folderName
   }),
-  puppeteer: {
+  puppeteer: {    
+    ffmpegPath: ffmpeg,
+    ffmpeg: ffmpeg,
     executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
     headless: true,
     args: [
@@ -57,8 +59,7 @@ const client = new Client({
       '--ignore-gpu-blocklist', // Ignora a lista de bloqueio da GPU
       '--no-startup-window', // Não abre uma janela de inicialização
       '--enable-blink-features=IdleDetection' // Ativa a detecção de inatividade do Blink
-  ],
-  ffmpegPath: ffmpeg
+  ]
   },
 });
 

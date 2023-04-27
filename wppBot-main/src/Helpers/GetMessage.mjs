@@ -133,7 +133,7 @@ const handleCommandMessage = async (sender, message, pushname, body, type) => {
   const { body, caption } = message;
   var { pushname } = await message.getContact() || { pushname: '[Sem Nome]' };
   const chat = await message.getChat();
-  
+  const user = await db.obterUsuario(sender.id), cmds_total = usuario?.comandos_total || 0
   if (await botInfo().limite_diario.status) {
     await botVerificarExpiracaoLimite();
   }
@@ -141,9 +141,9 @@ const handleCommandMessage = async (sender, message, pushname, body, type) => {
   // SE O USUARIO NÃO FOR REGISTRADO, FAÇA O REGISTRO
   var registrado = await db.verificarRegistro(sender)
   if(!registrado) {
-        let usuario = await db.obterUsuario(sender), cmds_total = usuario?.comandos_total || 0
+        
           if (!pushname) pushname = "";
-          if (!pushname.toLowerCase().includes("cmds:")) { // verifica se o nome do contato contém "cmd" (case-insensitive) e se o objeto usuario não é nulo              
+          if (!user.toLowerCase().includes("cmds:")) { // verifica se o nome do contato contém "cmd" (case-insensitive) e se o objeto usuario não é nulo              
               let usernamer = `${usuario?.nome ?? ''} cmds:${cmds_total}`;
              // console.log("Usuario Registrado: " + usernamer);                    
               await db.registrarUsuario(sender, usernamer)
@@ -154,9 +154,8 @@ const handleCommandMessage = async (sender, message, pushname, body, type) => {
   //SE FOR ALGUM COMANDO EXISTENTE
   //ATUALIZE NOME DO USUÁRIO
       
-      let usuario = await db.obterUsuario(sender), cmds_total = usuario?.comandos_total || 0
       if (usuario) {
-          if (pushname && !pushname.includes("cmds:")) {        
+          if (pushname && !user.toLowerCase().includes("cmds:")) {        
              let usernamer = `${usuario?.nome ?? ''} cmds:${cmds_total}`;
               await db.atualizarNome(sender, usernamer);
           }
