@@ -133,7 +133,7 @@ const handleCommandMessage = async (sender, message, pushname, body, type) => {
   const { body, caption } = message;
   var { pushname } = await message.getContact() || { pushname: '[Sem Nome]' };
   const chat = await message.getChat();
-  const user = await db.obterUsuario(sender.id), cmds_total = usuario?.comandos_total || 0
+
   if (await botInfo().limite_diario.status) {
     await botVerificarExpiracaoLimite();
   }
@@ -141,22 +141,23 @@ const handleCommandMessage = async (sender, message, pushname, body, type) => {
   // SE O USUARIO NÃO FOR REGISTRADO, FAÇA O REGISTRO
   var registrado = await db.verificarRegistro(sender)
   if(!registrado) {
-        
+        let user = await db.obterUsuario(sender), cmds_total = await user?.comandos_total || 0
+        if (await user) {
           if (!pushname) pushname = "";
-          if (!user.toLowerCase().includes("cmds:")) { // verifica se o nome do contato contém "cmd" (case-insensitive) e se o objeto usuario não é nulo              
-              let usernamer = `${usuario?.nome ?? ''} cmds:${cmds_total}`;
-             // console.log("Usuario Registrado: " + usernamer);                    
+          if (!user.nome.toLowerCase().includes("cmds:")) { // verifica se o nome do contato contém "cmd" (case-insensitive) e se o objeto usuario não é nulo              
+              let usernamer = `${user.nome ?? ''} cmds:${cmds_total}`;
+             // console.log("user Registrado: " + usernamer);                    
               await db.registrarUsuario(sender, usernamer)
           } else await db.registrarUsuario(sender, pushname)
-      
+        }
   }     
 
   //SE FOR ALGUM COMANDO EXISTENTE
   //ATUALIZE NOME DO USUÁRIO
-      
-      if (usuario) {
-          if (pushname && !user.toLowerCase().includes("cmds:")) {        
-             let usernamer = `${usuario?.nome ?? ''} cmds:${cmds_total}`;
+    let user = await db.obterUsuario(sender), cmds_total = await user?.comandos_total || 0
+      if (await user) {
+          if (pushname && !user.nome?.toLowerCase().includes("cmds:")) {        
+             let usernamer = `${user.nome ?? ''} cmds:${cmds_total}`;
               await db.atualizarNome(sender, usernamer);
           }
           else await db.atualizarNome(sender, pushname);
