@@ -2,18 +2,17 @@
   "name": "kizuno18",
   "version": "18",
   "description": "@oBigLeo",
-  "main": "index.mjs",
+  "main": "main.mjs",
   "scripts": {
     "test": "node test.mjs",
-    "start": "ping 127.0.0.1 -n 21 > nul && pm2 start index.mjs && ping 127.0.0.1 -n 21 > nul && pm2 start app.cjs && ping 127.0.0.1 -n 21 > nul && pm2 start index2.mjs && ping 127.0.0.1 -n 21 > nul && pm2 start app2.cjs && ping 127.0.0.1 -n 21 > nul && pm2 start app3.cjs && ping 127.0.0.1 -n 21 > nul && pm2 start index3.mjs",
-    "app": "node app.cjs",
-    "index": "node index.mjs",
-    "app2": "node app2.cjs",
-    "index2": "node index2.mjs",
-    "app3": "node app3.cjs",
-    "index3": "node index3.mjs",
-    "main": "node main.js"
-  },
+    "app": "pm2 start ./src/app/app.cjs",
+    "index": "pm2 start ./src/index/index.mjs",
+    "app2": "pm2 start ./src/app/app2.cjs",
+    "index2": "pm2 start ./src/index/index2.mjs",
+    "app3": "pm2 start ./src/app/app3.cjs",
+    "index3": "pm2 start ./src/index/index3.mjs",
+    "start": "node main.js"
+  },  
   "author": "@oBigLeo",
   "license": "ISC",
   "directories": {

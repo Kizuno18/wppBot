@@ -758,7 +758,7 @@ const msgs_texto = {
         },
         usuarios: {
             nao_encontrado: "[❗] Não existem usuários com esse tipo ou você digitou um tipo inválido, confira os tipos disponíveis em *!tipos*",
-            resposta_titulo: "🤖 USUÁRIOS ({p4}) - {p1} ({p2})\n\n"+"{p3}",
+            resposta_titulo: "🤖 USUÁRIOS ~ {p1} ({p2})\n\n"+"{p3}",
             resposta_item: "-> {p1}  @{p2} - {p3} cmds\n"
         },
         limpartipo:{

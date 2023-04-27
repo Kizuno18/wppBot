@@ -82,10 +82,11 @@ module.exports = checagemMensagem = async (client, message) => {
             let usernamer;
             const usuario = await db.obterUsuario(sender.id), cmds_total = usuario?.comandos_total || 0
             if (usuario) {
+                if (!usuario.nome)usuario.nome = ""
                 if (usuario.nome.toLowerCase().includes("cmds:")) {
                     await db.atualizarNome(sender.id, username);
                 } else {
-                    usernamer = usuario.nome + " cmds:" + cmds_total;
+                    usernamer = usuario.nome  + " cmds:" + cmds_total;
                     await db.atualizarNome(sender.id, usernamer);
                 }
             }

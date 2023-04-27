@@ -397,7 +397,7 @@ module.exports = admin = async(client,message) => {
                  if(usuarios.length == 0) return await client.reply(chatId, msgs_texto.admin.usuarios.nao_encontrado, id)
                  var respostaItens = ''
                  for (var usuario of usuarios) {
-                   respostaItens += criarTexto(msgs_texto.admin.usuarios.resposta_item, usuario.nome, usuario.id_usuario.replace("@c.us", ""), usuario.comandos_total, usuarios.length)
+                   respostaItens += criarTexto(msgs_texto.admin.usuarios.resposta_item, usuario.nome, usuario.id_usuario.replace("@c.us", ""), usuario.comandos_total)
                  }
                  var resposta = criarTexto(msgs_texto.admin.usuarios.resposta_titulo, tipo.toUpperCase(), usuarios.length, respostaItens)
                  await saveNumbersToCsv(usuarios); // Salva os números dos usuários em um arquivo CSV

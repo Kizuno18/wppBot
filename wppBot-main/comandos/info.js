@@ -7,8 +7,10 @@ const {criarTexto, erroComandoMsg, removerNegritoComando, timestampParaData} = r
 const path = require('path')
 const db = require('../lib/database')
 const { obterPaymentId, obterTransactionSucess } = require('../lib/api')
+const kizuUtils = require('../lib/kizuUtils')
 const {botInfo} = require(path.resolve("lib/bot.js"))
 
+  
 module.exports = info = async(client, message, abrirMenu) => {
     try{
         const {id, chatId, sender, chat, isGroupMsg, caption, body} = message
@@ -72,14 +74,19 @@ module.exports = info = async(client, message, abrirMenu) => {
                     tmp = "ouro"
                     if (isSucess >=10)
                     tmp = "vip"
+                    var dadosUsuario = await db.obterUsuario(sender.id), tipoUsuario = dadosUsuario.tipo
+                    tipo = msgs_texto.tipos[tipoUsuario]
+                    if (tipoUsuario == tmp)
+                        return await client.reply(chatId,`${tipo} já verificado.\n\n 🤖 *Kizuno18®* ~*`,id)
                     var alterou = await db.alterarTipoUsuario(sender.id, tmp)
-                    await client.reply(chatId,`${usr}\n${mesg}\nVerificado com sucesso!`,id)
                     if (!alterou) {
                         await client.reply(chatId,`${usr}\n${mesg}\nNão foi possivel alterar o tipo de usuario!\n\n 👇 Entre em contato com o 🤖 *Kizuno18®* ~\n *!reportar*`,id)
                     } else {
                         var dadosUsuario = await db.obterUsuario(sender.id), tipoUsuario = dadosUsuario.tipo
                         tipo = msgs_texto.tipos[tipoUsuario]
-                        await client.reply(chatId,`${usr}\n${mesg}\nTipo de usuario alterado para *${tipo}*!\n\n Agora você tem acesso ao 🤖 *Kizuno18®* ~\n*!menu*\n*!comandos*\n*!tipos*`,id)
+                        await client.reply(chatId,`_[${mesg}]_${usr}\n_em até 60 segundos você terá acesso *${tipo}*._`,id)
+                        await kizuUtils.restart("indexes");
+                        await client.reply(chatId, `_[${mesg}]_${usr}\nAgora você tem acesso *${tipo}* ao 🤖 *Kizuno18®* ~\n\n*!menu*\n*!comandos*\n*!tipos*`, id);
                     }
                 } else {
                 await client.reply(chatId,`${usr}\n${mesg} Não encontrado!\n\nTalvez você não tenha desbloqueado 👇\n*!desbloquear*\n\nPara desbloquear o 🤖 *Kizuno18®* ~`,id)

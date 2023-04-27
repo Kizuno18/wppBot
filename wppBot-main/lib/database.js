@@ -4,9 +4,9 @@ const path = require('path')
 const fs = require('fs-extra')
 const moment = require("moment-timezone")
 var db = {}
-db.usuarios = new AsyncNedb({filename : './database/db/usuarios.db', autoload: true})
-db.grupos = new AsyncNedb({filename : './database/db/grupos.db', autoload: true})
-db.contador = new AsyncNedb({filename : './database/db/contador.db', autoload: true})
+db.usuarios = new AsyncNedb({filename : './database/db/usuarios.db', autoload: true,autoid: false,autoCompactionInterval: 0})
+db.grupos = new AsyncNedb({filename : './database/db/grupos.db', autoload: true,autoid: false,autoCompactionInterval: 0})
+db.contador = new AsyncNedb({filename : './database/db/contador.db', autoload: true,autoid: false,autoCompactionInterval: 0 })
 
 
 module.exports = {
@@ -35,7 +35,9 @@ module.exports = {
             comandos_total: 0,
             comandos_dia: 0,
             max_comandos_dia : limite_diario.limite_tipos.bronze,
-            tipo: "bronze"
+            tipo: "bronze",
+            id: 0,
+            _id: id_usuario,
         }
         await db.usuarios.asyncInsert(cadastro_usuario)
     },

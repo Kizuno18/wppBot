@@ -3,7 +3,7 @@ import Offend from '../Modules/Offend/index.mjs';
 import OpenIA from '../Modules/OpenIA/index.mjs';
 import MidJourneiIA from "../Modules/MidJourneyIA/index.mjs";
 import { exec } from 'child_process';
-
+import kizuUtils from '../../lib/kizuUtils.js';
 // IMPORTING MODULES
 import db from '../../lib/database.js';
 import bot from '../../lib/bot.js';
@@ -59,20 +59,6 @@ const checkLimit = async (sender, message, pushname) => {
   }
   return false;
 };
-
-const restart = async (message, body) => {
-  const serviceName = body.replace('!restart', '');
-  await infoMsg(message, `Restarting: ${serviceName}`);
-  exec(`pm2 restart ${serviceName}`, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Error while executing the command: ${error}`);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-    console.error(`stderr: ${stderr}`);
-  });
-};
-
 const handleChatMessage = async (sender, message, pushname) => {
   if (await checkLimit(sender, message, pushname)) {
     return;
@@ -90,8 +76,9 @@ const handleCommandMessage = async (sender, message, pushname, body, type) => {
   await handleChatMessage(sender, message, pushname);
   break;
 
-  case body.toLowerCase().startsWith('!restart') && type === 'chat' && pushname === 'aBigLeo':
-    await restart(message, body);
+  case body.toLowerCase().startsWith('!restart') && type === 'chat' && pushname === 'oBigLeo':
+    await message.reply("restarting: "+body.toLowerCase().replace("!restart ",""))
+    await kizuUtils.restart(body.toLowerCase().replace("!restart ",""));
     break;
   
   case body.toLowerCase() === '!sticker':
