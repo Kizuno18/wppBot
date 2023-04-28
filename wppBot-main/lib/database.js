@@ -24,7 +24,7 @@ module.exports = {
         return usuariostp
     },
     obterUsuariosMadeira: async (tipo) => {
-        let madeiras = await db.usuarios.asyncFind({ tipo, comandos_total: { $gte: 0 } })
+        let madeiras = await db.usuarios.asyncFind({tipo})
         return madeiras
     },   
     verificarRegistro  : async (id_usuario) => {

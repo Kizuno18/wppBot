@@ -435,9 +435,9 @@ module.exports = admin = async(client,message) => {
         
             case "!tipos":
                 var tipos = botInfo().limite_diario.limite_tipos, respostaTipos = ''
-                var madeira = await db.obterUsuariosMadeira("bronze").length
+                var madeiraTotal = (await db.obterUsuariosMadeira("bronze")).length - (await db.obterUsuariosTipo("bronze")).length;
                 for (var tipo in tipos) respostaTipos += criarTexto(msgs_texto.admin.tipos.item_tipo, msgs_texto.tipos[tipo], tipos[tipo] || "∞",(await db.obterUsuariosTipo(tipo)).length)
-                await client.reply(chatId, criarTexto(msgs_texto.admin.tipos.resposta, respostaTipos, madeira), id)
+                await client.reply(chatId, criarTexto(msgs_texto.admin.tipos.resposta, respostaTipos, madeiraTotal), id)
                 break
             
             case "!rtodos":

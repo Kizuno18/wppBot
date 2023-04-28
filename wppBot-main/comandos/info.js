@@ -48,8 +48,10 @@ module.exports = info = async(client, message, abrirMenu) => {
                 
             case "!desbloquear":    
                 var cost = 1, cargo = "prata"
-                if (isGroupMsg)
-                    await client.reply(chatId,"_Enviei as informações no seu pv._",id)
+                if (isGroupMsg){
+                    await client.reply(chatId,"_por segurança, digite o comando no pv._",id)
+                    return;}
+
                 if (args.length > 2 && args[1].toLowerCase() != "guia") return await client.reply(chatId, erroComandoMsg(command), id)
                 if (args.length == 2)
                 { 
