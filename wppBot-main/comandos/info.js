@@ -48,6 +48,8 @@ module.exports = info = async(client, message, abrirMenu) => {
                 
             case "!desbloquear":    
                 var cost = 1, cargo = "prata"
+                if (isGroupMsg)
+                    await client.reply(chatId,"_Enviei as informações no seu pv._",id)
                 if (args.length > 2 && args[1].toLowerCase() != "guia") return await client.reply(chatId, erroComandoMsg(command), id)
                 if (args.length == 2)
                 { 
@@ -59,7 +61,7 @@ module.exports = info = async(client, message, abrirMenu) => {
                 var mesg = sender.id.replace("@c.us","")
                 var payId = await obterPaymentId(cost,usr,mesg)
                 var pixLink = "https://checkout.livepix.gg/"+ payId
-                await client.reply(chatId,`Para desbloquear o 🤖 *Kizuno18®* ~\nPIX de ${cost} Real 👇\nTítulo: _${cargo.toUpperCase()}_ \n\n ${pixLink}\n_após concluir o PIX você deve digitar:_\n _!verificar_`,id)
+                await client.sendText(sender.id,`Para desbloquear o 🤖 *Kizuno18®* ~\nPIX de ${cost} Real 👇\nTítulo: _${cargo.toUpperCase()}_ \n\n ${pixLink}\n_após concluir o PIX você deve digitar:_\n _!verificar_`)
                 break
 
             case "!verificar":                

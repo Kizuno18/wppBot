@@ -689,10 +689,7 @@ module.exports = {
               }
             });
           }
-      
-          const usuarios = await db.obterUsuariosTipo('ouro');
-          const userIds = usuarios.map((usr) => usr.id_usuario.replace('@c.us', ''));
-      
+            
           for (const phoneNumber of phoneNumbers) {
             const amount = amountByPhone[phoneNumber];
             if (amount >= 1 && amount < 3) {
@@ -700,8 +697,9 @@ module.exports = {
             } else if (amount >= 3 && amount < 10) {
                 console.log(phoneNumber+" "+amount)
               await db.alterarTipoUsuario(`${phoneNumber}@c.us`, 'ouro');
-            } else if (amount >= 10) {
-              await db.alterarTipoUsuario(`${phoneNumber}@c.us`, 'VIP');
+            } else if (amount >= 10) {                
+                console.log(phoneNumber+" "+amount)
+              await db.alterarTipoUsuario(`${phoneNumber}@c.us`, 'vip');
             }
           }
         } catch (error) {

@@ -4,9 +4,9 @@ const path = require('path')
 const fs = require('fs-extra')
 const moment = require("moment-timezone")
 var db = {}
-db.usuarios = new AsyncNedb({filename : './database/db/usuarios.db', autoload: true,autoid: false,autoCompactionInterval: 0})
-db.grupos = new AsyncNedb({filename : './database/db/grupos.db', autoload: true,autoid: false,autoCompactionInterval: 0})
-db.contador = new AsyncNedb({filename : './database/db/contador.db', autoload: true,autoid: false,autoCompactionInterval: 0 })
+db.usuarios = new AsyncNedb({filename : './database/db/usuarios.db', autoload: true,autoid: false})
+db.grupos = new AsyncNedb({filename : './database/db/grupos.db', autoload: true,autoid: false})
+db.contador = new AsyncNedb({filename : './database/db/contador.db', autoload: true,autoid: false})
 
 
 module.exports = {
@@ -15,10 +15,18 @@ module.exports = {
         let usuario = await db.usuarios.asyncFindOne({id_usuario : id_usuario})
         return usuario
     },
-    obterUsuariosTipo : async (tipo) =>{
-        let usuarios = await db.usuarios.asyncFind({tipo})
-        return usuarios
+    obterUsuariosTipo: async (tipo) => {
+        let usuariostp
+        if (tipo == "bronze") {
+            usuariostp = await db.usuarios.asyncFind({ tipo, comandos_total: { $gt: 0 } })     
+        }   
+        else {usuariostp = await db.usuarios.asyncFind({tipo})}
+        return usuariostp
     },
+    obterUsuariosMadeira: async (tipo) => {
+        let madeiras = await db.usuarios.asyncFind({ tipo, comandos_total: { $gte: 0 } })
+        return madeiras
+    },   
     verificarRegistro  : async (id_usuario) => {
         let resp = await db.usuarios.asyncFindOne({id_usuario})
         return (resp != null)

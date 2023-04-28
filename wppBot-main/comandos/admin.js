@@ -200,22 +200,24 @@ module.exports = admin = async(client,message) => {
                            
             
             case '!regctt': // Registra todos contatos
-                for (const contact of contacts) {
+                for (const contact of await client.getAllContacts()) {
                     const contactId = await contact.id;
-                    const messageIndex = Math.floor(Math.random() * messages.length);
-                    const groupIndex = Math.floor(Math.random() * groups.length);
-                    const message = messages[messageIndex];
-                    const grupo = groups[groupIndex];
+                   // console.log(contactId)
+                   //const messageIndex = Math.floor(Math.random() * messages.length);
+                   //const groupIndex = Math.floor(Math.random() * groups.length);
+                   //const message = messages[messageIndex];
+                   // const grupo = groups[groupIndex];
                     let username = await contact.name || contact.pushname || contact.formattedName || contact.id.replace("@c.us", "");
+                    //console.log(username)
                     var registrado = await db.verificarRegistro(contactId)
                     if(!registrado) {
-                    if (!pushname.includes("cmds:")) { // verifica se o nome do contato contém "cmd" (case-insensitive)
+                    if (!username.includes("cmds:")) { // verifica se o nome do contato contém "cmd" (case-insensitive)
                       username += " cmds: 0"; // adiciona "cmds: 0" ao nome do contato
                       //console.log("name atualizado: " + username);
                     }
 
                     await db.registrarUsuario(contactId, username); // registra o contato com o novo nome
-                    console.log("Contato registrado!"); 
+                    //console.log("Contato registrado!"); 
                      }
                 }
                 break
@@ -433,8 +435,9 @@ module.exports = admin = async(client,message) => {
         
             case "!tipos":
                 var tipos = botInfo().limite_diario.limite_tipos, respostaTipos = ''
+                var madeira = await db.obterUsuariosMadeira("bronze").length
                 for (var tipo in tipos) respostaTipos += criarTexto(msgs_texto.admin.tipos.item_tipo, msgs_texto.tipos[tipo], tipos[tipo] || "∞",(await db.obterUsuariosTipo(tipo)).length)
-                await client.reply(chatId, criarTexto(msgs_texto.admin.tipos.resposta, respostaTipos, ), id)
+                await client.reply(chatId, criarTexto(msgs_texto.admin.tipos.resposta, respostaTipos, madeira), id)
                 break
             
             case "!rtodos":

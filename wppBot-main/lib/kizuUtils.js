@@ -24,7 +24,6 @@ async function restart(serviceName) {
         "index3"
       ]);
       break;
-    case "all index":
     case "indexes":
       await startOrRestartApps([
         "index",
@@ -32,7 +31,6 @@ async function restart(serviceName) {
         "index3"
       ], true);
       break;
-    case "all app":
     case "apps":
       await startOrRestartApps([
         "app",

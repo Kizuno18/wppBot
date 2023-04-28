@@ -848,7 +848,7 @@ const msgs_texto = {
             resposta_inferior: "Total de comandos usados : *{p1}* comandos\n"
         },
         tipos: {
-            resposta: "🤖 TIPOS DE USUÁRIOS :\n\n"+
+            resposta: "🤖 TIPOS DE USUÁRIOS :\n_{p2} usuarios madeira._\n\n"+
             "{p1}",
             item_tipo: "{p1} - *{p2}* cmds/dia\n(Usuários: {p3})\n"
         },
