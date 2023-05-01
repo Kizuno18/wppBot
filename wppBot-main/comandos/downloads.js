@@ -66,24 +66,25 @@ module.exports = downloads = async(client,message) => {
                 break
 
             case "!ig":
-                if(args.length === 1) return await client.reply(chatId,erroComandoMsg(command),id)
-                await client.reply(chatId, msgs_texto.downloads.ig.espera, id)
-                try{
-                    var usuarioTexto = body.slice(4).trim(), resultadosMidia = await api.obterMidiaInstagram(usuarioTexto)
-                    if(resultadosMidia.results_number == 0) return await client.reply(chatId, msgs_texto.downloads.ig.nao_encontrado, id)
-                    if(resultadosMidia.results_number == 1) {
-                        await client.sendFile(chatId, resultadosMidia.url_list[0], `ig-media`,"",id).catch(()=>{
-                            client.reply(chatId, msgs_texto.downloads.ig.erro_download, id)
-                        })
-                    }
-                    else {
-                        var temErro = false
-                        for(let url of resultadosMidia.url_list) await client.sendFile(chatId, url, `ig-media`,"").catch(()=> temErro = true)
-                        if(temErro) await client.reply(chatId, msgs_texto.downloads.ig.erro_download, id)
-                    } 
-                } catch(err){
-                    await client.reply(chatId,err.message,id)
-                }
+              // if(args.length === 1) return await client.reply(chatId,erroComandoMsg(command),id)
+              // await client.reply(chatId, msgs_texto.downloads.ig.espera, id)
+              // try{
+              //     var usuarioTexto = body.slice(4).trim(), resultadosMidia = await api.obterMidiaInstagram(usuarioTexto)
+              //     if(resultadosMidia.results_number == 0) return await client.reply(chatId, msgs_texto.downloads.ig.nao_encontrado, id)
+              //     if(resultadosMidia.results_number == 1) {
+              //         await client.sendFile(chatId, resultadosMidia.url_list[0], `ig-media`,"",id).catch(()=>{
+              //             client.reply(chatId, msgs_texto.downloads.ig.erro_download, id)
+              //         })
+              //     }
+              //     else {
+              //         var temErro = false
+              //         for(let url of resultadosMidia.url_list) await client.sendFile(chatId, url, `ig-media`,"").catch(()=> temErro = true)
+              //         if(temErro) await client.reply(chatId, msgs_texto.downloads.ig.erro_download, id)
+              //     } 
+              // } catch(err){
+              //     await client.reply(chatId,err.message,id)
+                //}
+                await client.reply(chatId,"_indisponível temporariamente._",id)
                 break
 
             case "!tw":

@@ -53,8 +53,8 @@ module.exports = {
         "Ex: *!img* 5 tema - Envia 5 imagens com o tema que você digitar.",
     },
     utilidade : {
-        tabela: cabecalho+
-        "Ex: *!tabela* - Exibe a tabela de letras para criação de nicks.",
+        //tabela: cabecalho+
+        //"Ex: *!tabela* - Exibe a tabela de letras para criação de nicks.",
         audio: cabecalho+
         "Responda um aúdio com um desses comandos :\n\n"+
         "Ex: *!audio* grave - Torna audio mais grave e lento\n\n"+

@@ -72,7 +72,7 @@ module.exports = {
 |
 ╰╼❥ ${process.env.NOME_BOT.trim()}® by *${process.env.NOME_ADMINISTRADOR.trim()}*`
     },
-
+    // |- *!tabela* -  Mostra tabela com letras para criação de nicks.
     menuUtilidades: ()=>{
         return `__| ☾ *🤖 ${process.env.NOME_BOT.trim()}®* ☽
 |
@@ -85,7 +85,7 @@ module.exports = {
 |- *!qualmusica* - Responda um audio/video para identificar a música.
 |- *!letra* [nome-musica] - Envia a letra da música que você digitar.
 |- *!anime* -  Identifica o anime por foto de uma cena.
-|- *!tabela* -  Mostra tabela com letras para criação de nicks.
+
 |- *!traduz* [idioma] [texto] - Traduz um texto para o idioma escolhido.
 |- *!ddd* - Responda alguém para ver o estado/região.
 |- *!pesquisa* [tema] - Faz uma rápida pesquisa na internet.

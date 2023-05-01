@@ -63,7 +63,7 @@ const msgs_texto = {
             erro_conversao: "[❗] Houve um problema de conversão de mídia, ou esta mídia não pode ser convertida.",
             link_invalido : '[❗] O link que você enviou não é válido.',
             ssf_imagem: `[❗] Este comando é válido apenas para imagens.`,
-            video_invalido : '[❗] Envie um video/gif com no máximo 120 segundos.',
+            video_invalido : '[❗] Envie um video/gif com no máximo 10 segundos.\n\ncaso for maior que 10 segundos, você pode usar o comando: \n*!sticker*',
             erro_remover: '[❗] Houve um erro ao remover fundo, verifique se a imagem é compatível.',
             indisponivel: '[❗] Este comando está indisponível no momento, tente novamente mais tarde.'
         },
