@@ -15,7 +15,6 @@ module.exports = {
 |- *!menu* 1 -> Figurinhas
 |- *!menu* 2 -> Utilidades
 |- *!menu* 3 -> Downloads
-|- *!menu* 4 -> Grupo
 |- *!menu* 5 -> Diversão
 |- *!menu* 6 -> Créditos
 |

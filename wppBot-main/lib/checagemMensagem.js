@@ -31,7 +31,7 @@ module.exports = checagemMensagem = async (client, message) => {
         const isBlocked = blockedNumbers.includes(sender.id)
         const comandoExiste = (
             lista_comandos.utilidades.includes(command) ||
-            lista_comandos.grupo.includes(command) || 
+           // lista_comandos.grupo.includes(command) || 
             lista_comandos.diversao.includes(command) ||
             lista_comandos.admin.includes(command) ||
             lista_comandos.info.includes(command) ||
