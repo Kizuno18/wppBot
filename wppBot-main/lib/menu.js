@@ -15,6 +15,7 @@ module.exports = {
 |- *!menu* 1 -> Figurinhas
 |- *!menu* 2 -> Utilidades
 |- *!menu* 3 -> Downloads
+|- *!menu* 4 -> Grupos
 |- *!menu* 5 -> Diversão
 |- *!menu* 6 -> Créditos
 |
@@ -148,15 +149,12 @@ module.exports = {
 |
 |-- ☾ ADMINISTRATIVO ☽
 |
-|- *!add* +55 (21) 9xxxx-xxxx - Adiciona ao grupo.
-|- *!ban* @marcarmembro - Bane do grupo.
 |- *!f* - Abre/fecha o grupo.
 |- *!promover* @marcarmembro - Promove a ADM.
 |- *!rebaixar* @marcaradmin - Rebaixa a MEMBRO.
 |- *!link* - Exibe o link do grupo.
 |- *!rlink* - Redefine o link do grupo.
 |- *!apg* - Apaga mensagem do BOT.
-|- *!bantodos* - Bane todos os membros.
 |
 |-- ☾ VOTAÇÃO BAN ☽
 |

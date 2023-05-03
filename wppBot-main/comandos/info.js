@@ -143,10 +143,11 @@ module.exports = info = async(client, message, abrirMenu) => {
                         case "3":
                             menuResposta = menu.menuDownload()
                             break
-                   //     case "4":
-                  //             if(isGroupMsg) menuResposta = menu.menuGrupo(isGroupAdmins)
-                  //             else return await client.reply(chatId, msgs_texto.permissao.grupo, id)
-                   //            break
+                        case "4":
+                               if(isGroupMsg) menuResposta = menu.menuGrupo(isGroupAdmins)
+                               else return await client.reply(chatId, msgs_texto.permissao.grupo, id)
+                            //    client.reply(chatId, "Ainda não existe um menu 4.\n_em breve novidades._", id)
+                               break
                         case "5":
                             menuResposta = menu.menuDiversao(isGroupMsg)
                             break

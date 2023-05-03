@@ -140,6 +140,27 @@ module.exports = {
             lista_negra: []
         }
         await db.grupos.asyncInsert(cadastro_grupo)
+    },  
+    desregistrarGrupo: async(id_grupo, participantes)=>{
+        let cadastro_grupo = {
+            id_grupo,
+            participantes,
+            mutar: false,
+            bemvindo: {status: false, msg: ""},
+            antifake: {status: false, ddi_liberados:[]},
+            antilink: {status: false, filtros:{youtube: false, whatsapp:false, facebook:false, twitter:false}},
+            antitrava: {status: false, max_caracteres: 0},
+            antiflood: false,
+            antiporno: false,
+            autosticker: false,
+            voteban: {status: false, max: 5, usuario: "", votos:0, votou:[]},
+            contador: {status:false, inicio: ''},
+            enquete: {status: false, pergunta: "", opcoes: []},
+            block_cmds: [],
+            lista_negra: []
+        }
+        await db.grupos.asyncInsert(cadastro_grupo)
+        await db.grupos.asyncRemove(cadastro_grupo)
     },
     resetarGrupos: async()=>{
         db.grupos.asyncUpdate({}, 

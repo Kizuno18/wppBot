@@ -19,8 +19,10 @@ module.exports = grupo = async(client,message) => {
         const groupId = isGroupMsg ? chat.groupMetadata.id : ''
         const groupAdmins = isGroupMsg ? await client.getGroupAdmins(groupId) : ''
         const isGroupAdmins = isGroupMsg ? groupAdmins.includes(sender.id) : false
+        const ownerNumber = process.env.NUMERO_DONO.trim()
+        const isOwner = ownerNumber == sender.id.replace(/@c.us/g, '')   
         const isBotGroupAdmins = isGroupMsg ? groupAdmins.includes(botNumber + '@c.us') : false
-        if (!isGroupMsg) return client.reply(chatId, msgs_texto.permissao.grupo, id)
+    
 
         switch(command){
             case '!regras':
@@ -570,6 +572,7 @@ module.exports = grupo = async(client,message) => {
             
             case '!add':
                 if (!isGroupAdmins) return client.reply(chatId, msgs_texto.permissao.apenas_admin, id)
+                if (isGroupMsg && !isOwner) return client.reply(chatId, msgs_texto.permissao.grupo, id)
                 if (!isBotGroupAdmins) return client.reply(chatId, msgs_texto.permissao.bot_admin, id)
                 if (args.length === 1) return client.reply(chatId, erroComandoMsg(command), id)
                 var usuarioNumeros = body.slice(5).split(",")

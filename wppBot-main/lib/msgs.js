@@ -25,8 +25,9 @@ const msgs_texto = {
             resposta_comum: "Olá, *{p1}*\n"+
             "Tipo de Usuário : *{p2}*\n",
             resposta_limite_diario: "Olá, *{p1}*\n"+
-            "Limite : *{p2}/{p3}*\n"+
-            "Tipo de Usuário : *{p4}*\n"
+            "Limite Diário : *{p2}/{p3}*\n"+
+            "Tipo de Usuário : *{p4}*\n" +           
+            "_para ter mais limite digite *!tipos*_\n"
         },
         info:{
             resposta: "*Criador do Bot* : {p1}\n"+
@@ -850,7 +851,7 @@ const msgs_texto = {
         tipos: {
             resposta: "🤖 TIPOS DE USUÁRIOS :\n_{p2} usuarios madeira._\n\n"+
             "{p1}",
-            item_tipo: "{p1} - *{p2}* cmds/dia\n(Usuários: {p3})\n"
+            item_tipo: "{p1} - *{p2}* cmds/dia\n(Usuários: {p3})\n*!desbloquear {p4}*\n"
         },
         rconfig:{
             reset_sucesso: "🤖✅ As configurações dos grupos foram resetadas com sucesso"
@@ -884,7 +885,7 @@ const msgs_texto = {
             resposta: "🤖✅ Saí de todos os grupos com sucesso, total de grupos : {p1}"
         },
         limpar:{
-            limpar_sucesso : "🤖✅ Todos os chats foram limpos.",
+            limpar_sucesso : "🤖✅ Limpo.",
         },
         estado:{
             sucesso: "🤖✅ Seu estado foi alterado com sucesso."
@@ -903,7 +904,7 @@ const msgs_texto = {
         }
     },
     permissao: {
-        grupo: '[❗] Este comando só pode ser usado em grupos',
+        grupo: '[❗] Este comando só pode ser usado em grupos\ne precisa ser usado pelo dono do bot.\n digite: *!info*',
         bot_admin: '[❗] Permita que o BOT tenha permissões administrativas.',
         banir_admin : '[❗] O Bot não tem permissão para banir um administrador',
         apenas_admin : '[❗] Apenas administradores podem usar este comando.',

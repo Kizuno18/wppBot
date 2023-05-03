@@ -49,7 +49,7 @@ module.exports = admin = async(client,message) => {
         const isOwner = ownerNumber == sender.id.replace(/@c.us/g, '')        
         const contacts = await client.getAllContacts();
         
-        if ((!isOwner) && !command.startsWith('!entrargrupo') && !command.startsWith('!tipos')) return client.reply(chatId, msgs_texto.permissao.apenas_dono_bot, id)
+        if ((!isOwner) && !command.startsWith('!tipos')) return client.reply(chatId, msgs_texto.permissao.apenas_dono_bot, id)
         
 
         switch(command){
@@ -83,23 +83,24 @@ module.exports = admin = async(client,message) => {
                 break
                 
             case '!entrargrupo':
-                //if (args.length < 2) return await client.reply(chatId, erroComandoMsg(command), id)
-                //var linkGrupo = args[1]
-                //var totalGrupos = await client.getAllGroups()
-                //--var linkValido = linkGrupo.match(/(https:\/\/chat.whatsapp.com)/gi)
-                //var conviteInfo = await client.inviteInfo(linkGrupo)
-                //--if (!linkValido) return await client.reply(chatId, msgs_texto.admin.entrar_grupo.link_invalido, id)
-                //if (totalGrupos.length > 2000) return await client.reply(chatId, msgs_texto.admin.entrar_grupo.maximo_grupos, id)
-                //if (conviteInfo.status === 200) {
-                //    client.joinGroupViaLink(linkGrupo).then(async (gId) => {
-                //        await cadastrarGrupo(gId, "added", client)
-                //        await client.reply(chatId, msgs_texto.admin.entrar_grupo.entrar_sucesso,id)
-                //    })
-                //}
-                //else {
-                //    await client.reply(chatId, msgs_texto.admin.entrar_grupo.link_invalido, id)
-                //}
-                    await client.reply(chatId, "Comando temporariamente indisponível.", id)
+                if (!isOwner) return await client.reply(chatId, "Peça para o adm:\n\n*!reportar* _linkdogrupo_", id)
+                if (args.length < 2) return await client.reply(chatId, erroComandoMsg(command), id)
+                var linkGrupo = args[1]
+                var totalGrupos = await client.getAllGroups()
+                var linkValido = linkGrupo.match(/(https:\/\/chat.whatsapp.com)/gi)
+                var conviteInfo = await client.inviteInfo(linkGrupo)
+                if (!linkValido) return await client.reply(chatId, msgs_texto.admin.entrar_grupo.link_invalido, id)
+                if (totalGrupos.length > 2000) return await client.reply(chatId, msgs_texto.admin.entrar_grupo.maximo_grupos, id)
+                if (conviteInfo.status === 200) {
+                    client.joinGroupViaLink(linkGrupo).then(async (gId) => {
+                        await cadastrarGrupo(gId, "added", client)
+                        await client.reply(chatId, msgs_texto.admin.entrar_grupo.entrar_sucesso,id)
+                    })
+                }
+                else {
+                    await client.reply(chatId, msgs_texto.admin.entrar_grupo.link_invalido, id)
+                }
+                    //await client.reply(chatId, "Comando temporariamente indisponível.", id)
                 break
 
             case '!sair':
@@ -116,7 +117,7 @@ module.exports = admin = async(client,message) => {
 
             case '!limpartudo':
                 var chats = await client.getAllChats()
-                for (var c of chats) await client.deleteChat(c.id)
+                for (var c of chats) await client.clearAllChats()
                 await client.sendText(ownerNumber+"@c.us", msgs_texto.admin.limpar.limpar_sucesso)
                 break
             
@@ -135,7 +136,7 @@ module.exports = admin = async(client,message) => {
             case '!limpar':
                 var chats = await client.getAllChats()
                 for (var c of chats) {
-                    if(c.id.match(/@c.us/g) && c.id != sender.id) await client.deleteChat(c.id)
+                    if(c.id.match(/@c.us/g) && c.id != sender.id) await client.clearChat(c.id)
                 }
                 await client.sendText(ownerNumber+"@c.us", msgs_texto.admin.limpar.limpar_sucesso)
                 break
@@ -436,7 +437,7 @@ module.exports = admin = async(client,message) => {
             case "!tipos":
                 var tipos = botInfo().limite_diario.limite_tipos, respostaTipos = ''
                 var madeiraTotal = (await db.obterUsuariosMadeira("bronze")).length - (await db.obterUsuariosTipo("bronze")).length;
-                for (var tipo in tipos) respostaTipos += criarTexto(msgs_texto.admin.tipos.item_tipo, msgs_texto.tipos[tipo], tipos[tipo] || "∞",(await db.obterUsuariosTipo(tipo)).length)
+                for (var tipo in tipos) respostaTipos += criarTexto(msgs_texto.admin.tipos.item_tipo, msgs_texto.tipos[tipo], tipos[tipo] || "∞",(await db.obterUsuariosTipo(tipo)).length,tipo)
                 await client.reply(chatId, criarTexto(msgs_texto.admin.tipos.resposta, respostaTipos, madeiraTotal), id)
                 break
             

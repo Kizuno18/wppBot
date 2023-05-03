@@ -22,9 +22,20 @@ module.exports = eventosGrupo = async (client, event) => {
             //ATUALIZA A LISTA DE PARTICIPANTES NO BANDO DE DADOS
             await adicionarParticipante(event.chat,event.who)
         } else if(event.action == "remove"){
+            console.log("removed")
             //ATUALIZA A LISTA DE PARTICIPANTES NO BANDO DE DADOS
             await removerParticipante(event.chat,event.who)
             if(g_info.contador) await db.removerContagem(event.chat,event.who)
+        } else if(event.action == "removed you"){
+            console.log("removed you")
+            //ATUALIZA A LISTA DE PARTICIPANTES NO BANDO DE DADOS
+            //await removerParticipante(event.chat,event.who)
+            //if(g_info.contador) await db.removerContagem(event.chat,event.who)
+        }else if(event.action.includes("you")){
+            console.log("you")
+            //ATUALIZA A LISTA DE PARTICIPANTES NO BANDO DE DADOS
+            //await removerParticipante(event.chat,event.who)
+            //if(g_info.contador) await db.removerContagem(event.chat,event.who)
         }
     } catch (err) {
         consoleErro(err.message, 'EVENTO-GRUPO')
