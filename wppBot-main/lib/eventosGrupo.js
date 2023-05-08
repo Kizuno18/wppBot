@@ -22,9 +22,11 @@ module.exports = eventosGrupo = async (client, event) => {
             //ATUALIZA A LISTA DE PARTICIPANTES NO BANDO DE DADOS
             await adicionarParticipante(event.chat,event.who)
         } else if(event.action == "remove"){
-            console.log("removed")
+            //console.log("removed")
             //ATUALIZA A LISTA DE PARTICIPANTES NO BANDO DE DADOS
             await removerParticipante(event.chat,event.who)
+            //console.log(event.chat)
+            // console.log(event.who)
             if(g_info.contador) await db.removerContagem(event.chat,event.who)
         } else if(event.action == "removed you"){
             console.log("removed you")
