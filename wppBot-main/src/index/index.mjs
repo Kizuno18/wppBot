@@ -56,7 +56,35 @@ const client = new Client({
       '--enable-automation', // Ativa a automação do Chromium
       '--ignore-gpu-blocklist', // Ignora a lista de bloqueio da GPU
       '--no-startup-window', // Não abre uma janela de inicialização
-      '--enable-blink-features=IdleDetection' // Ativa a detecção de inatividade do Blink
+      '--enable-blink-features=IdleDetection', // Ativa a detecção de inatividade do Blink
+      "--disable-canvas-aa",
+      "--disable-2d-canvas-clip-aa",
+      "--use-gl=swiftshader",
+      "--enable-webgl",
+      "--hide-scrollbars",
+      "--mute-audio",
+      "--disable-infobars",
+      "--disable-breakpad",
+      "--window-size=1280,720",
+      "--disable-gl-drawing-for-tests",
+      "--aggressive-cache-discard",
+      "--aggressive-tab-discard",
+      "--disable-accelerated-2d-canvas",
+      "--disable-application-cache",
+      "--disable-cache",
+      "--disable-gpu",
+      "--disable-offline-load-stale-cache",
+      "--disk-cache-size=0",
+      "--ignore-certificate-errors",
+      "--no-zygote",
+      "--no-first-run",
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage",
+      "--single-process",
+      "--disable-site-isolation-trials",
+      "--renderer-process-limit=2",
+      "--enable-low-end-device-mode"
   ]
   },
 });
