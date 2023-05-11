@@ -142,8 +142,12 @@ module.exports = admin = async(client,message) => {
                 break
             
                 case '!teste':
-                    await verificarMembros()
-                    await client.sendText(ownerNumber+"@c.us", "Todos os membros receberam seus cargos.");
+                var grupos = await client.getAllGroups()
+                for (var grupo of grupos) 
+                    var gMembers = client.getGroupMembers(grupo.id)
+                    console.log(gMembers.length)
+                    if (gMembers.length <= 2)
+                        console.log("menor que 2")
                 break
                
                     

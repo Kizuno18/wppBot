@@ -2,7 +2,7 @@ import sendToOpenApi from '../../Helpers/api.mjs'
 import axios from 'axios';
 
 const helpWords = "\n\no *Kizuno18* precisa de sua ajuda!\nsaiba mais em: *!sobre*\n_status:_ *operacional*";
-const errMsg = `Não entendi, tente formular uma frase maior caso queira falar com o ChatGPT.\n\nDigite: !comando para ver os comandos disponiveis.`;
+const errMsg = `Não entendi, tente formular uma frase maior caso queira falar com o ChatGPT.\n\nDigite: !comandos para ver os comandos disponiveis.`;
 
 export async function OpenIA(message) {
   try {

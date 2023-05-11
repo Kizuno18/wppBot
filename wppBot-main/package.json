@@ -2,17 +2,13 @@
   "name": "kizuno18",
   "version": "18",
   "description": "@oBigLeo",
-  "main": "main.mjs",
+  "main": "main.js",
   "scripts": {
     "test": "node test.mjs",
     "app": "pm2 start ./src/app/app.cjs",
     "index": "pm2 start ./src/index/index.mjs",
     "app2": "pm2 start ./src/app/app2.cjs",
     "index2": "pm2 start ./src/index/index2.mjs",
-    "app3": "pm2 start ./src/app/app3.cjs",
-    "index3": "pm2 start ./src/index/index3.mjs",
-    "app4": "pm2 start ./src/app/app4.cjs",
-    "index4": "pm2 start ./src/index/index4.mjs",
     "start": "node main.js"
   },
   "author": "@oBigLeo",

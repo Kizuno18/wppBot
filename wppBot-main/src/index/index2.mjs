@@ -14,7 +14,17 @@ const client = new Client({
     ffmpeg: "./ffmpeg.exe",
     executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
     headless: true,
-        args: [
+    qrTimeout: 0,
+    authTimeout: 0,
+    skipUpdateCheck: true,
+    multiDevice: true,
+    cachedPatch: true,
+    cacheEnabled: false,
+    useChrome: true,
+    stickerServerEndpoint: true,
+    killProcessOnBrowserClose: true,
+    throwErrorOnTosBlock: true,
+    args: [
       '--disable-background-networking',
       '--disable-background-timer-throttling',
       '--disable-backgrounding-occluded-windows',
@@ -85,8 +95,8 @@ const client = new Client({
       "--renderer-process-limit=2",
       "--enable-low-end-device-mode"
   ]
-    },
-  });
+  },
+});
 
 client.initialize();
 

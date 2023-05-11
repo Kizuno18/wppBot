@@ -12,6 +12,7 @@ const lista_comandos = JSON.parse(fs.readFileSync(path.resolve('comandos/comando
 module.exports = checagemMensagem = async (client, message) => {
     try {
         if (!message || !message.id || !message.sender || !message.sender.id) return false;
+        
 
         var groupMain = "120363142529983568@g.us"
         const {t, sender, isGroupMsg, chat, type, caption, id, chatId, body} = message;
@@ -74,9 +75,11 @@ module.exports = checagemMensagem = async (client, message) => {
             let usuario = await db.obterUsuario(sender.id)
             if (usuario && isOwner) await db.verificarDonoAtual(sender.id)       
         }        
-
+        
         //SE FOR ALGUM COMANDO EXISTENTE
         if(comandoExiste){
+
+
             //ATUALIZE NOME DO USUÁRIO 
             
             let usernamer;
@@ -169,16 +172,18 @@ module.exports = checagemMensagem = async (client, message) => {
                         return false
                     }   
                 } else {
+                                           
                     await db.addContagemTotal(sender.id)
-                    await botVerificarExpiracaoLimite()
+                    await botVerificarExpiracaoLimite()                    
                 }
             } else {
-                await db.addContagemTotal(sender.id)
+                     
+                await db.addContagemTotal(sender.id)                
+
             }
           
             //ADICIONA A CONTAGEM DE COMANDOS EXECUTADOS PELO BOT
-            await botInfoUpdate()
-
+            await botInfoUpdate()       
         } else { //SE NÃO FOR UM COMANDO EXISTENTE
             //SE FOR UMA MENSAGEM PRIVADA E O LIMITADOR DE MENSAGENS ESTIVER ATIVO
             if(!isGroupMsg && botInfo().limitarmensagens.status){

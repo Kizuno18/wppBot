@@ -10,7 +10,7 @@ module.exports = config = (headless, start) =>  {
         cachedPatch: true,
         cacheEnabled: false,
         useChrome: true,
-        executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
+        executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
         stickerServerEndpoint: true,
         killProcessOnBrowserClose: true,
         throwErrorOnTosBlock: true,

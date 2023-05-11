@@ -39,6 +39,7 @@ module.exports = chamadaComando = async (client, message) => {
             lista_comandos.figurinhas.includes(command) ||
             lista_comandos.downloads.includes(command)
         )
+
         const abrirMenu = commands.match(/comandos|comando|ajuda|menu|help/gmi) && !isGroupMsg && !comandoExiste && !message.fromMe
         if(abrirMenu) command = "!menu", comandoExiste = true
 
@@ -80,6 +81,9 @@ module.exports = chamadaComando = async (client, message) => {
                 await info(client, message, abrirMenu)
                 consoleComando(isGroupMsg, "INFO", command, "#8ac46e", t, username, formattedTitle)
             }
+          //  var chats = await client.getAllChats()
+           // for (var c of chats) await client.deleteStaleChats(10)
+           // await client.sendText(ownerNumber+"@c.us", msgs_texto.admin.limpar.limpar_sucesso)
         } else { //SE NÃO FOR UM COMANDO EXISTENTE
             //AUTO-STICKER GRUPO
             if(isGroupMsg && (type == MessageTypes.IMAGE || type == MessageTypes.VIDEO) && grupoInfo.autosticker){
@@ -97,10 +101,15 @@ module.exports = chamadaComando = async (client, message) => {
                 if(botInfo().limite_diario.status){
                     await botVerificarExpiracaoLimite()
                     let ultrapassou = await db.ultrapassouLimite(sender.id)
-                    if(!ultrapassou) await db.addContagemDiaria(sender.id) 
+                    if(!ultrapassou) {await db.addContagemDiaria(sender.id)        
+                     //   var chats = await client.getAllChats()
+                     //   for (var c of chats) await client.deleteStaleChats(10)
+                    }
                     else return await client.reply(chatId, criarTexto(msgs_texto.admin.limitediario.resposta_excedeu_limite, username, ownerNumber), id)
                 } else {
-                    await db.addContagemTotal(sender.id)
+               //     await db.addContagemTotal(sender.id)
+                //    var chats = await client.getAllChats()
+                    //for (var c of chats) await client.deleteStaleChats(10)
                 }
                 await autoSticker(client, message)
                 consoleComando(isGroupMsg, "FIGURINHAS", "AUTO-STICKER", "#ae45d1", t, username, formattedTitle)
@@ -122,6 +131,8 @@ module.exports = chamadaComando = async (client, message) => {
                     else return await client.reply(chatId, criarTexto(msgs_texto.admin.limitediario.resposta_excedeu_limite, username, ownerNumber), id)
                 } else {
                     await db.addContagemTotal(sender.id)
+                 //   var chats = await client.getAllChats()
+                 //   for (var c of chats) await client.deleteStaleChats(10)
                 }
                 await autoSticker(client, message)
                 consoleComando(isGroupMsg, "FIGURINHAS", "AUTO-STICKER", "#ae45d1", t, username, formattedTitle)

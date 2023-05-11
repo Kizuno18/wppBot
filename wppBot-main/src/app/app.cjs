@@ -12,9 +12,11 @@ const chamadaComando = require("./../../lib/chamadaComando")
 const msgs_texto = require("./../../lib/msgs")
 const recarregarContagem = require("./../../lib/recarregarContagem")
 const {botStart} = require('./../../lib/bot')
+const { verificarMembros } = require('../../lib/api')
 const {verificarEnv} = require('./../../lib/env')
+const db = require('../../lib/database')
 const path = require('path');
-
+const ownerNumber = process.env.NUMERO_DONO.trim()
 
 const start = async (client = new Client()) => {
     try{
@@ -46,6 +48,14 @@ const start = async (client = new Client()) => {
             //Verificando se os campos do .env foram modificados e envia para o console
             verificarEnv()
 
+            await client.clearAllChats()            
+            console.log('[CHATS] Limpos!')
+            await db.limparTipo("prata")
+            await db.limparTipo("ouro")
+            await db.limparTipo("vip")            
+            console.log('[CARGOS] Usuarios expirados removidos!')
+            await verificarMembros()            
+            console.log('[CARGOS] Verificados!')
             //INICIO DO SERVIDOR
             console.log('[SERVIDOR] Servidor iniciado!')
 
@@ -66,6 +76,7 @@ const start = async (client = new Client()) => {
                 if(!await antiPorno(client, message)) return
                 if(!await checagemMensagem(client, message)) return
                 await chamadaComando(client, message)
+
             }), {})
 
             //Ouvindo entrada/saida de participantes dos grupo
