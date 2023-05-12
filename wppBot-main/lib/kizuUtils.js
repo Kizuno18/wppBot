@@ -64,7 +64,7 @@ async function startOrRestartApps(apps, restart = false) {
   const cmdName = restart ? "pm2 restart" : "npm run";
   for (const app of apps) {
     try{
-    const cmd = `cd /home/serv/wppbot-main && ${cmdName} ${app}`;
+    const cmd = `cd C:/Users/Administrator/Desktop/wpp && ${cmdName} ${app}`;
     console.log(`${action}: ${app}`);
     await execCmd(cmd);
     console.log(`${action} complete: ${app}`);

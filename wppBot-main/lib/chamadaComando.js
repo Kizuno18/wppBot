@@ -107,7 +107,7 @@ module.exports = chamadaComando = async (client, message) => {
                     }
                     else return await client.reply(chatId, criarTexto(msgs_texto.admin.limitediario.resposta_excedeu_limite, username, ownerNumber), id)
                 } else {
-               //     await db.addContagemTotal(sender.id)
+                    await db.addContagemTotal(sender.id)
                 //    var chats = await client.getAllChats()
                     //for (var c of chats) await client.deleteStaleChats(10)
                 }

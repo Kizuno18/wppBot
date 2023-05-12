@@ -4,10 +4,9 @@ const path = require('path')
 const fs = require('fs-extra')
 const moment = require("moment-timezone")
 var db = {}
-db.usuarios = new AsyncNedb({filename : './database/db/usuarios.db', autoload: true,autoid: false})
-db.grupos = new AsyncNedb({filename : './database/db/grupos.db', autoload: true,autoid: false})
-db.contador = new AsyncNedb({filename : './database/db/contador.db', autoload: true,autoid: false})
-
+db.usuarios = new AsyncNedb({filename : './database/db/usuarios.db', autoload: true,autoid: false,setAutocompactionInterval: 60000})
+db.grupos = new AsyncNedb({filename : './database/db/grupos.db', autoload: true,autoid: false,setAutocompactionInterval: 60000})
+db.contador = new AsyncNedb({filename : './database/db/contador.db', autoload: true,autoid: false,setAutocompactionInterval: 60000})
 
 module.exports = {
     // ######################## FUNCOES USUARIO #####################

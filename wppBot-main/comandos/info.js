@@ -48,13 +48,14 @@ module.exports = info = async(client, message, abrirMenu) => {
                 
             case "!desbloquear":    
                 var cost = 1, cargo = "prata"
-                if (isGroupMsg){
-                    await client.reply(chatId,"_por segurança, digite o comando no pv._",id)
-                    return;}
+                //if (isGroupMsg){
+                 //   await client.reply(chatId,"_por segurança, digite o comando no pv._",id)
+                 //   return;}
 
                 if (args.length > 2 && args[1].toLowerCase() != "guia") return await client.reply(chatId, erroComandoMsg(command), id)
                 if (args.length == 2)
                 { 
+		  if (args[1].toLowerCase() == "bronze") cost = 1, cargo = "prata"
                   if (args[1].toLowerCase() == "prata") cost = 1, cargo = args[1]
                   if (args[1].toLowerCase() == "ouro") cost = 3, cargo = args[1]
                   if (args[1].toLowerCase() == "vip") cost = 10, cargo = args[1]
@@ -63,7 +64,7 @@ module.exports = info = async(client, message, abrirMenu) => {
                 var mesg = sender.id.replace("@c.us","")
                 var payId = await obterPaymentId(cost,usr,mesg)
                 var pixLink = "https://checkout.livepix.gg/"+ payId
-                await client.sendText(sender.id,`Para desbloquear o 🤖 *Kizuno18®* ~\nPIX de ${cost} Real 👇\nTítulo: _${cargo.toUpperCase()}_ \n\n ${pixLink}\n_após concluir o PIX você deve digitar:_\n _!verificar_`)
+                await client.reply(chatId,`Para desbloquear o 🤖 *Kizuno18®* ~\nPIX de ${cost} Real 👇\nTítulo: _${cargo.toUpperCase()}_ \n\n ${pixLink}\n_após concluir o PIX você deve digitar:_\n _!verificar_`,id)
                 break
 
             case "!verificar":                
