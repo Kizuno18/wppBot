@@ -639,7 +639,7 @@ module.exports = {
         };
       
         try {
-            for (let i = 1; i <= 10; i++) {
+            for (let i = 1; i <= 5; i++) {
                 const url = `https://webservice.livepix.gg/dashboard/transactions/?page=${i}`;
                 const response = await axios.get(url, { headers });
                 const data = response.data;
