@@ -639,7 +639,7 @@ module.exports = {
         };
       
         try {
-            for (let i = 1; i <= 5; i++) {
+            for (let i = 1; i <= 35; i++) {
                 const url = `https://webservice.livepix.gg/dashboard/transactions/?page=${i}`;
                 const response = await axios.get(url, { headers });
                 const data = response.data;
@@ -671,8 +671,8 @@ module.exports = {
           const today = new Date();
           const toDate = today.toISOString().slice(0, 10) + "T23%3A59%3A59-03%3A00";
           const fromDate = new Date(today.getFullYear(), today.getMonth() - 1, 1).toISOString().slice(0, 10) + "T00%3A00%3A00-03%3A00";         
-          for (let i = 1; i <= 15; i++) {
-            const url = `https://webservice.livepix.gg/dashboard/transactions/?page=${i}&search=&from=${fromDate}&to=${toDate}`;
+          for (let i = 1; i <= 35; i++) {
+            const url = `https://webservice.livepix.gg/dashboard/transactions/?page=${i}`;
             const { data } = await axios.get(url, { headers });
       
             data.forEach((item) => {
