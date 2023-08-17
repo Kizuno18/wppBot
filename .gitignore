@@ -6,3 +6,5 @@
 **_IGNORE_**
 # end managed
 node_modules/
+sessions/
+.wwebjs_cache/
