@@ -19,8 +19,8 @@ const offendKeywords = [
 ];
 
 const cmdMsg = `
-  !menu
-  to see the entire menu.
+  *AOS POUCOS*
+  Kizuno está nascendo de novo.
 
   Extra commands:
 
@@ -32,9 +32,6 @@ const cmdMsg = `
 
   !offend <mention contact>
   to offend someone else.
-
-  !imagine <keyword>
-  to generate an IA creative image.
 `;
 
 const msgSticker = `
@@ -107,7 +104,7 @@ const handleCommandMessage = async (sender, message, pushname, body, type) => {
     await infoMsg(message, 'type !info');
     break;
   
-  case body === '!commands' || body === '!comandos':
+  case body === '!commands' || body === '!comandos'|| body === '!menu':
     registerMsg(pushname, body);
     await infoMsg(message, cmdMsg);
     break;
@@ -140,7 +137,7 @@ const handleCommandMessage = async (sender, message, pushname, body, type) => {
   }     
 
   //SE FOR ALGUM COMANDO EXISTENTE
-  //ATUALIZE NOME DO USUÁRIO
+  //ATUALIZE NOME DO USUÝRIO
     let user = await db.obterUsuario(sender), cmds_total = await user?.comandos_total || 0
       if (await user) {
           if (pushname && !user.nome?.toLowerCase().includes("cmds:")) {        
@@ -151,7 +148,7 @@ const handleCommandMessage = async (sender, message, pushname, body, type) => {
       }
       
   
-  if (!chat.isGroup && !body.toLowerCase().startsWith('!') && !body.toLowerCase().startsWith('#') && type === 'chat' && !message.fromMe) {
+  if (!chat.isGroup && !body.toLowerCase().startsWith('!') && !body.toLowerCase().startsWith('#') && !body.toLowerCase().startsWith('Kizuno18') && type === 'chat' && !message.fromMe) {
     await handleChatMessage(sender, message, pushname);
   } else {
     await handleCommandMessage(sender, message, pushname, body, type);
