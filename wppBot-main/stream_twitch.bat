@@ -1,0 +1,1 @@
+./ffmpeg -stream_loop -1 -re -i aba.mp4 -i https://207.148.74.192:7874/stream.mp3 -c:v copy -c:a aac -b:a 128k -ar 44100 -f flv rtmp://iad05.contribute.live-video.net/app/live_844337218_y8ncmTXF5HGQB3KTGqRdBK9bu5t6qB
