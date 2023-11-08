@@ -4,6 +4,7 @@ da primeira versão que bombou no inicio do ano, estava com 60k de usuarios em 2
 
 Kizuno18 agora tá rodando em uma nova documentação, o numero permanece o mesmo:
 55 11 91689-6983
+https://wa.me/5511916896983
 
 Atualmente não funciona mais, porque a Meta ameaçou o criador da documentação open-wa, e o desenvolvedor decidiu parar de atualizar a documentação.
 https://github.com/open-wa/wa-automate-nodejs por @smashah (https://github.com/smashah)
