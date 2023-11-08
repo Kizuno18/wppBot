@@ -5,7 +5,8 @@ da primeira versão que bombou no inicio do ano, estava com 60k de usuarios em 2
 Kizuno18 agora tá rodando em uma nova documentação, o numero permanece o mesmo:
 55 11 91689-6983
 
-Atualmente não funciona mais, porque a Meta ameaçou o criador da documentação open-wa, e o indiano decidiu parar de atualizar a documentação.
+Atualmente não funciona mais, porque a Meta ameaçou o criador da documentação open-wa, e o desenvolvedor decidiu parar de atualizar a documentação.
+https://github.com/open-wa/wa-automate-nodejs por @smashah (https://github.com/smashah)
 
 Vou disponibilizar para fins de estudos, qualquer coisa falem comigo. 
 
@@ -21,6 +22,6 @@ não faz sentido suporte pra algo outdated né?
 Q: quais os fins dele?
 A: entretenimento, moderação de grupo, consultas e pesquisas, downloads de videos e audios de midias sociais
 
-o codigo foi inspirado em https://github.com/victorsouzaleal/lbot-whatsapp do @victorsouzaleal
+o codigo foi inspirado em https://github.com/victorsouzaleal/lbot-whatsapp do @victorsouzaleal (https://github.com/victorsouzaleal)
 
-que foi inspirado em https://github.com/MhankBarBar/whatsapp-bot do @MhankBarBar
+que foi inspirado em https://github.com/MhankBarBar/whatsapp-bot do @MhankBarBar (https://github.com/MhankBarBar/whatsapp-bot)
