@@ -1,28 +1,80 @@
-CODIGO FONTE
-Abaixo tá o codigo fonte do Kizuno18
-da primeira versão que bombou no inicio do ano, estava com 60k de usuarios em 2k de grupos, varios comandos no menu.
 
-Kizuno18 agora tá rodando em uma nova documentação, o numero permanece o mesmo:
-55 11 91689-6983
-https://wa.me/5511916896983
+# wppBot
 
-Atualmente não funciona mais, porque a Meta ameaçou o criador da documentação open-wa, e o desenvolvedor decidiu parar de atualizar a documentação.
-https://github.com/open-wa/wa-automate-nodejs por @smashah (https://github.com/smashah)
+**[EN]**: Welcome to the wppBot repository!  
+**[PT-BR]**: Bem-vindo ao repositório do wppBot!
 
-Vou disponibilizar para fins de estudos, qualquer coisa falem comigo. 
+---
 
-NÂO DOU SUPORTE!
+## About / Sobre
 
-não faz sentido suporte pra algo outdated né?
+**[EN]**: wppBot was a popular WhatsApp bot with over 60,000 users across 2,000 groups.  
+**[PT-BR]**: O wppBot foi um bot popular no WhatsApp com mais de 60.000 usuários em 2.000 grupos.
 
-/shrug 
-¯\_(ツ)_/¯
+**[EN]**: It provided group moderation, entertainment, media downloads, and more.  
+**[PT-BR]**: Ele oferecia moderação de grupos, entretenimento, downloads de mídia e mais.
 
-(video ilustrativo onde abri no whatsapp web uma nova sessão para apenas monitorar o bot)
+**[EN]**: The bot is no longer operational due to issues with the open-wa documentation.  
+**[PT-BR]**: O bot não está mais operacional devido a problemas com a documentação do open-wa.
 
-Q: quais os fins dele?
-A: entretenimento, moderação de grupo, consultas e pesquisas, downloads de videos e audios de midias sociais
+---
 
-o codigo foi inspirado em https://github.com/victorsouzaleal/lbot-whatsapp do @victorsouzaleal (https://github.com/victorsouzaleal)
+## Features / Funcionalidades
 
-que foi inspirado em https://github.com/MhankBarBar/whatsapp-bot do @MhankBarBar (https://github.com/MhankBarBar/whatsapp-bot)
+**[EN]**: - Group Moderation  
+**[PT-BR]**: - Moderação de Grupos
+
+**[EN]**: - Fun Commands  
+**[PT-BR]**: - Comandos de Diversão
+
+**[EN]**: - Media Downloads  
+**[PT-BR]**: - Downloads de Mídia
+
+---
+
+## Installation / Instalação
+
+**[EN]**: Clone the repository:  
+```bash
+git clone https://github.com/Kizuno18/wppBot.git
+```
+**[PT-BR]**: Clone o repositório:  
+```bash
+git clone https://github.com/Kizuno18/wppBot.git
+```
+
+**[EN]**: Install the dependencies:  
+```bash
+npm install
+```
+**[PT-BR]**: Instale as dependências:  
+```bash
+npm install
+```
+
+---
+
+## Usage / Uso
+
+**[EN]**: Start the bot with:  
+```bash
+npm start
+```
+**[PT-BR]**: Inicie o bot com:  
+```bash
+npm start
+```
+
+---
+
+## Contributing / Contribuindo
+
+**[EN]**: Feel free to fork the project and submit pull requests.  
+**[PT-BR]**: Sinta-se à vontade para fazer um fork do projeto e enviar pull requests.
+
+---
+
+## License / Licença
+
+**[EN]**: This project is licensed under the MIT License.  
+**[PT-BR]**: Este projeto é licenciado sob a Licença MIT.
