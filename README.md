@@ -1,80 +1,57 @@
-
 # wppBot
 
-**[EN]**: Welcome to the wppBot repository!  
-**[PT-BR]**: Bem-vindo ao repositório do wppBot!
+**[EN]**: SOURCE CODE  
+**[PT-BR]**: CÓDIGO FONTE
 
 ---
 
-## About / Sobre
-
-**[EN]**: wppBot was a popular WhatsApp bot with over 60,000 users across 2,000 groups.  
-**[PT-BR]**: O wppBot foi um bot popular no WhatsApp com mais de 60.000 usuários em 2.000 grupos.
-
-**[EN]**: It provided group moderation, entertainment, media downloads, and more.  
-**[PT-BR]**: Ele oferecia moderação de grupos, entretenimento, downloads de mídia e mais.
-
-**[EN]**: The bot is no longer operational due to issues with the open-wa documentation.  
-**[PT-BR]**: O bot não está mais operacional devido a problemas com a documentação do open-wa.
+**[EN]**: Below is the source code of Kizuno18's first version that blew up earlier this year, reaching 60k users across 2k groups, with many commands in the menu.  
+**[PT-BR]**: Abaixo está o código fonte da primeira versão do Kizuno18 que bombou no início do ano, atingindo 60k de usuários em 2k de grupos, com vários comandos no menu.
 
 ---
 
-## Features / Funcionalidades
-
-**[EN]**: - Group Moderation  
-**[PT-BR]**: - Moderação de Grupos
-
-**[EN]**: - Fun Commands  
-**[PT-BR]**: - Comandos de Diversão
-
-**[EN]**: - Media Downloads  
-**[PT-BR]**: - Downloads de Mídia
+**[EN]**: Kizuno18 is now running on new documentation, but the number remains the same:  
+**[PT-BR]**: O Kizuno18 agora está rodando em uma nova documentação, mas o número permanece o mesmo:  
+**[EN/PT-BR]**: 55 11 91689-6983  
+[**EN/PT-BR**]: https://wa.me/5511916896983
 
 ---
 
-## Installation / Instalação
-
-**[EN]**: Clone the repository:  
-```bash
-git clone https://github.com/Kizuno18/wppBot.git
-```
-**[PT-BR]**: Clone o repositório:  
-```bash
-git clone https://github.com/Kizuno18/wppBot.git
-```
-
-**[EN]**: Install the dependencies:  
-```bash
-npm install
-```
-**[PT-BR]**: Instale as dependências:  
-```bash
-npm install
-```
+**[EN]**: Currently, it no longer works because Meta threatened the creator of the open-wa documentation, and the developer decided to stop updating it.  
+**[PT-BR]**: Atualmente não funciona mais, porque a Meta ameaçou o criador da documentação open-wa, e o desenvolvedor decidiu parar de atualizar a documentação.  
+[**EN/PT-BR**]: https://github.com/open-wa/wa-automate-nodejs by @smashah (https://github.com/smashah)
 
 ---
 
-## Usage / Uso
+**[EN]**: I'm making it available for study purposes, contact me if needed.  
+**[PT-BR]**: Vou disponibilizar para fins de estudos, qualquer coisa falem comigo.
 
-**[EN]**: Start the bot with:  
-```bash
-npm start
-```
-**[PT-BR]**: Inicie o bot com:  
-```bash
-npm start
-```
+**[EN]**: I DO NOT PROVIDE SUPPORT!  
+**[PT-BR]**: NÃO DOU SUPORTE!
 
----
+**[EN]**: It doesn't make sense to support something outdated, right?  
+**[PT-BR]**: Não faz sentido suporte pra algo outdated né?
 
-## Contributing / Contribuindo
-
-**[EN]**: Feel free to fork the project and submit pull requests.  
-**[PT-BR]**: Sinta-se à vontade para fazer um fork do projeto e enviar pull requests.
+/shrug  
+¯\\_(ツ)_/¯
 
 ---
 
-## License / Licença
+**[EN]**: (Illustrative video where I opened a new session on WhatsApp Web just to monitor the bot)  
+**[PT-BR]**: (Vídeo ilustrativo onde abri no WhatsApp Web uma nova sessão para apenas monitorar o bot)
 
-**[EN]**: This project is licensed under the MIT License.  
-**[PT-BR]**: Este projeto é licenciado sob a Licença MIT.
+---
+
+**[EN]**: Q: What are its purposes?  
+**[PT-BR]**: Q: Quais os fins dele?
+
+**[EN]**: A: Entertainment, group moderation, queries and searches, video and audio downloads from social media.  
+**[PT-BR]**: A: Entretenimento, moderação de grupo, consultas e pesquisas, downloads de vídeos e áudios de mídias sociais.
+
+---
+
+**[EN]**: The code was inspired by [https://github.com/victorsouzaleal/lbot-whatsapp](https://github.com/victorsouzaleal/lbot-whatsapp) by @victorsouzaleal (https://github.com/victorsouzaleal)  
+**[PT-BR]**: O código foi inspirado em [https://github.com/victorsouzaleal/lbot-whatsapp](https://github.com/victorsouzaleal/lbot-whatsapp) do @victorsouzaleal (https://github.com/victorsouzaleal)
+
+**[EN]**: Which was inspired by [https://github.com/MhankBarBar/whatsapp-bot](https://github.com/MhankBarBar/whatsapp-bot) by @MhankBarBar (https://github.com/MhankBarBar/whatsapp-bot)  
+**[PT-BR]**: Que foi inspirado em [https://github.com/MhankBarBar/whatsapp-bot](https://github.com/MhankBarBar/whatsapp-bot) do @MhankBarBar (https://github.com/MhankBarBar/whatsapp-bot)
